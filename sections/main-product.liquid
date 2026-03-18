@@ -13,6 +13,9 @@
       <h1 class="text-2xl font-bold">{{ product.title }}</h1>
       
       <p class="text-xl mt-4">{{ product.price | money }}</p>
+      <p class="text-sm text-green-600 mt-2">🔥 Only few items left</p>
+      <p class="text-sm text-gray-500">🚚 Delivery: 5–8 days</p>
+      <p class="text-sm text-yellow-500">⭐ 4.8 Rating</p>
 
       <form method="post" action="/cart/add" class="mt-6">
         <input type="hidden" name="id" value="{{ product.variants.first.id }}">
