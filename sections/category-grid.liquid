@@ -1,7 +1,7 @@
 <section class="py-10 bg-gray-100">
   <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 px-4">
 
-    <!-- LEFT MENU -->
+    <!-- LEFT CATEGORY MENU -->
     <div class="bg-white rounded-xl p-4 space-y-3 shadow-sm">
       <h3 class="font-semibold text-lg mb-2">Categories</h3>
 
@@ -14,7 +14,7 @@
       {% endfor %}
     </div>
 
-    <!-- PRODUCT CARDS -->
+    <!-- CENTER PRODUCTS -->
     <div class="md:col-span-2 grid grid-cols-2 gap-4">
       
       {% for product in collections.all.products limit:4 %}
@@ -23,7 +23,9 @@
           <img src="{{ product.featured_image | image_url: width: 300 }}" 
                class="w-full h-32 object-contain mb-2">
 
-          <p class="text-sm font-medium">{{ product.title }}</p>
+          <p class="text-sm font-medium">
+            {{ product.title | truncate: 40 }}
+          </p>
         </div>
       {% endfor %}
 
@@ -37,7 +39,7 @@
           Super Deals
         </h3>
         <p class="text-sm">
-          Special offers for this month
+          Special offers this month
         </p>
       </div>
 
