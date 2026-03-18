@@ -52,9 +52,13 @@
   {{ content_for_header }}
 </head>
 <body class="transition-colors duration-300">
-  
+
   {% section 'announcement-bar' %}
-  {% section 'header' %}
+
+  <!-- 🔥 APPLE STYLE HEADER WRAPPER -->
+  <div id="site-header" class="sticky top-0 z-50 transition-all duration-300 glass border-b border-gray-200">
+    {% section 'header' %}
+  </div>
 
   <main id="MainContent" role="main" class="min-h-screen">
     {{ content_for_layout }}
@@ -65,7 +69,21 @@
   {% render 'cart-drawer' %}
   {% render 'quick-view-modal' %}
 
+  <!-- 🔥 SCROLL EFFECT SCRIPT -->
+  <script>
+    const header = document.getElementById('site-header');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) {
+        header.classList.add('shadow-lg', 'bg-white/80', 'backdrop-blur-lg');
+      } else {
+        header.classList.remove('shadow-lg', 'bg-white/80', 'backdrop-blur-lg');
+      }
+    });
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
   <script src="{{ 'app.js' | asset_url }}" defer></script>
+
 </body>
 </html>
