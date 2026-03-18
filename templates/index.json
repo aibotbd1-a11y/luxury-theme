@@ -3,6 +3,9 @@
     "hero": {
       "type": "hero"
     },
+    "categories": {
+      "type": "category-grid"
+    },
     "trust": {
       "type": "trust-bar"
     },
@@ -10,5 +13,10 @@
       "type": "product-grid"
     }
   },
-  "order": ["hero", "trust", "products"]
+  "order": [
+    "hero",
+    "categories",
+    "trust",
+    "products"
+  ]
 }
