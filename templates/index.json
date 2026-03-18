@@ -3,12 +3,12 @@
     "hero": {
       "type": "hero"
     },
+    "trust": {
+      "type": "trust-bar"
+    },
     "products": {
       "type": "product-grid"
     }
   },
-  "order": [
-    "hero",
-    "products"
-  ]
+  "order": ["hero", "trust", "products"]
 }
