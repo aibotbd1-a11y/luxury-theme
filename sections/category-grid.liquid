@@ -1,17 +1,17 @@
 <section class="category-section">
   <div class="page-width">
-
+    
     <div class="category-wrapper">
-
-      <!-- LEFT -->
+      
+      <!-- LEFT SIDE LIST -->
       <div class="category-sidebar">
         <h3>Categories</h3>
         <ul>
-          {% for block in section.blocks %}
-            {% if block.settings.collection != blank %}
+          {% for collection in collections %}
+            {% if collection.products_count > 0 %}
               <li>
-                <a href="{{ block.settings.collection.url }}">
-                  {{ block.settings.collection.title }} →
+                <a href="{{ collection.url }}">
+                  {{ collection.title }} →
                 </a>
               </li>
             {% endif %}
@@ -19,24 +19,28 @@
         </ul>
       </div>
 
-      <!-- GRID -->
+      <!-- MIDDLE GRID -->
       <div class="category-grid">
-        {% for block in section.blocks %}
-          {% if block.settings.collection != blank %}
-            <a href="{{ block.settings.collection.url }}" class="category-card">
-
-              {% if block.settings.collection.featured_image %}
-                <img src="{{ block.settings.collection.featured_image | image_url: width: 400 }}">
+        {% for collection in collections %}
+          {% if collection.products_count > 0 %}
+            <a href="{{ collection.url }}" class="category-card">
+              
+              {% if collection.featured_image %}
+                <img 
+                  src="{{ collection.featured_image | image_url: width: 400 }}" 
+                  alt="{{ collection.title }}"
+                >
+              {% else %}
+                <div class="no-image"></div>
               {% endif %}
-
-              <p>{{ block.settings.collection.title }}</p>
-
+              
+              <p>{{ collection.title }}</p>
             </a>
           {% endif %}
         {% endfor %}
       </div>
 
-      <!-- RIGHT -->
+      <!-- RIGHT SIDE BOX -->
       <div class="category-offer">
         <h3>Super Deals</h3>
         <p>Special offers this month</p>
@@ -61,6 +65,20 @@
   border-radius: 12px;
 }
 
+.category-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.category-sidebar li {
+  margin-bottom: 10px;
+}
+
+.category-sidebar a {
+  text-decoration: none;
+  color: #000;
+}
+
 .category-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -73,7 +91,12 @@
   border-radius: 12px;
   text-align: center;
   text-decoration: none;
-  color: black;
+  color: #000;
+  transition: 0.3s;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
 }
 
 .category-card img {
@@ -87,35 +110,14 @@
   border-radius: 12px;
   text-align: center;
 }
-</style>
 
-{% schema %}
-{
-  "name": "Category Grid",
-  "max_blocks": 6,
-  "blocks": [
-    {
-      "type": "category",
-      "name": "Category",
-      "settings": [
-        {
-          "type": "collection",
-          "id": "collection",
-          "label": "Select Collection"
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Category Grid",
-      "blocks": [
-        { "type": "category" },
-        { "type": "category" },
-        { "type": "category" },
-        { "type": "category" }
-      ]
-    }
-  ]
+.category-offer .btn {
+  display: inline-block;
+  background: black;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  margin-top: 10px;
 }
-{% endschema %}
+</style>
