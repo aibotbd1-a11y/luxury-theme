@@ -1,50 +1,49 @@
-<header class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300" id="global-header">
-  <div class="container mx-auto px-4 lg:px-8 h-20 flex items-center justify-between">
-    
-    <a href="/" class="flex-shrink-0 text-2xl font-serif font-bold tracking-tight">
-      {{ shop.name }}<span class="text-brand-accent">.</span>
-    </a>
+<header class="bg-white border-b">
 
-    <div class="hidden lg:flex flex-1 max-w-2xl mx-12 relative group">
-      <input type="text" placeholder="Search products, brands, or trends..." class="w-full bg-gray-100 dark:bg-gray-900 rounded-full py-3 px-6 text-sm outline-none focus:ring-2 focus:ring-brand-accent transition-shadow">
-      <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-brand-accent">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-      </button>
-      
-      <div class="absolute top-full mt-2 w-full bg-white dark:bg-gray-900 rounded-2xl shadow-xl opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 p-4 border border-gray-100 dark:border-gray-800">
-        <p class="text-xs text-gray-500 uppercase tracking-wider mb-3">✨ AI Trending Suggestions</p>
-        <div class="flex flex-wrap gap-2">
-          <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full text-sm cursor-pointer hover:bg-brand-accent hover:text-white transition">Y2K Denim</span>
-          <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full text-sm cursor-pointer hover:bg-brand-accent hover:text-white transition">Oversized Blazers</span>
-        </div>
-      </div>
+  <!-- TOP BAR -->
+  <div class="flex items-center justify-between px-6 py-3 max-w-7xl mx-auto">
+    
+    <!-- LOGO -->
+    <div class="text-2xl font-bold">
+      <a href="/">Shoppy</a>
     </div>
 
-    <div class="flex items-center space-x-6">
-      <button id="theme-toggle" class="text-gray-700 dark:text-gray-300 hover:scale-110 transition-transform">🌓</button>
+    <!-- SEARCH -->
+    <div class="flex-1 mx-6">
+      <form action="/search" method="get" class="relative">
+        <input 
+          type="text" 
+          name="q"
+          placeholder="Search products..." 
+          class="w-full border rounded-full px-5 py-2 focus:outline-none"
+        >
+        <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black text-white px-4 py-1 rounded-full">
+          🔍
+        </button>
+      </form>
+    </div>
+
+    <!-- RIGHT MENU -->
+    <div class="flex items-center gap-4 text-sm">
+      <a href="/account">👤 Account</a>
+      <a href="/cart">🛒 Cart</a>
+    </div>
+
+  </div>
+
+  <!-- CATEGORY NAV -->
+  <div class="bg-gray-50 border-t">
+    <div class="max-w-7xl mx-auto flex items-center gap-6 px-6 py-2 text-sm overflow-x-auto">
       
-      <a href="/account" class="text-gray-700 dark:text-gray-300 hover:text-brand-accent transition-colors">
-        <span class="sr-only">Account</span>
-        👤
-      </a>
-      <a href="/pages/wishlist" class="text-gray-700 dark:text-gray-300 hover:text-brand-accent transition-colors">
-        <span class="sr-only">Wishlist</span>
-        ❤️
-      </a>
-      <button class="relative text-gray-700 dark:text-gray-300 hover:text-brand-accent transition-colors js-drawer-open-cart">
-        <span class="sr-only">Cart</span>
-        🛍️
-        <span class="absolute -top-2 -right-2 bg-brand-accent text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center animate-pulse">
-          {{ cart.item_count }}
-        </span>
-      </button>
+      <a href="/collections/all" class="font-medium">All Categories</a>
+
+      {% for collection in collections %}
+        <a href="{{ collection.url }}" class="hover:text-black text-gray-600 whitespace-nowrap">
+          {{ collection.title }}
+        </a>
+      {% endfor %}
+
     </div>
   </div>
-</header>
 
-{% schema %}
-{
-  "name": "Header",
-  "settings": []
-}
-{% endschema %}
+</header>
