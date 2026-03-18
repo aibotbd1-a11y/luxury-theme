@@ -7,7 +7,7 @@
 
       <div class="space-y-2">
         {% for collection in collections limit:6 %}
-          {% if collection.products_count > 0 %}
+          {% if collection.all_products_count > 0 %}
             <a href="{{ collection.url }}" 
                class="flex justify-between items-center text-sm text-gray-600 hover:text-black transition">
               {{ collection.title }}
@@ -21,8 +21,8 @@
     <!-- MIDDLE CATEGORY CARDS -->
     <div class="md:col-span-2 grid grid-cols-2 gap-5">
 
-      {% for collection in collections limit:4 %}
-        {% if collection.products_count > 0 %}
+      {% for collection in collections.all limit:4 %}
+        {% if collection.all_products_count > 0 %}
 
           <a href="{{ collection.url }}" 
              class="group bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-lg transition block overflow-hidden">
