@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}" class="scroll-smooth antialiased">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0A0A0A">
+  <link rel="manifest" href="{{ 'manifest.json' | asset_url }}">
+  <title>{{ page_title | escape }}</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              white: '#FFFFFF',
+              dark: '#0A0A0A',
+              light: '#F5F5F5',
+              accent: '#FF3B5C', // Hot pink-red
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+    }
+    body { background-color: theme('colors.brand.light'); color: theme('colors.brand.dark'); }
+    .dark body { background-color: theme('colors.brand.dark'); color: theme('colors.brand.light'); }
+    .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .dark .glass { background: rgba(10, 10, 10, 0.7); }
+    /* Hide scrollbar for clean UI */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: #FF3B5C; border-radius: 10px; }
+  </style>
+
+  {{ content_for_header }}
+</head>
+<body class="transition-colors duration-300">
+  
+  {% section 'announcement-bar' %}
+  {% section 'header' %}
+
+  <main id="MainContent" role="main" class="min-h-screen">
+    {{ content_for_layout }}
+  </main>
+
+  {% section 'footer' %}
+
+  {% render 'cart-drawer' %}
+  {% render 'quick-view-modal' %}
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="{{ 'app.js' | asset_url }}" defer></script>
+</body>
+</html>
