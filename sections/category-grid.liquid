@@ -2,54 +2,34 @@
   <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 px-4">
 
     <!-- LEFT CATEGORY MENU -->
-    <div class="bg-white rounded-xl p-5 shadow-sm min-h-[260px]">
-      <h3 class="font-semibold text-lg mb-4">Categories</h3>
-
-      <div class="space-y-2">
-        {% for collection in collections limit:6 %}
-          {% if collection.all_products_count > 0 %}
-            <a href="{{ collection.url }}" 
-               class="flex justify-between items-center text-sm text-gray-600 hover:text-black transition">
-              {{ collection.title }}
-              →
-            </a>
-          {% endif %}
-        {% endfor %}
-      </div>
-    </div>
+   {% for collection in collections.all limit:6 %}
+  <a href="{{ collection.url }}"
+     class="flex justify-between items-center text-sm text-gray-600 hover:text-black transition">
+    {{ collection.title }}
+    →
+  </a>
+{% endfor %}
 
     <!-- MIDDLE CATEGORY CARDS -->
-    <div class="md:col-span-2 grid grid-cols-2 gap-5">
+    {% for collection in collections.all limit:4 %}
 
-      {% for collection in collections.all limit:4 %}
-        {% if collection.all_products_count > 0 %}
+  <a href="{{ collection.url }}"
+     class="group bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-lg transition block overflow-hidden">
 
-          <a href="{{ collection.url }}" 
-             class="group bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-lg transition block overflow-hidden">
+    {% if collection.image %}
+      <img 
+        src="{{ collection.image | image_url: width: 400 }}" 
+        class="w-full h-36 object-cover rounded-lg transition duration-500 group-hover:scale-105"
+      >
+    {% endif %}
 
-            <!-- IMAGE -->
-            {% if collection.image %}
-              <img 
-                src="{{ collection.image | image_url: width: 400 }}" 
-                class="w-full h-36 object-cover rounded-lg transition duration-500 group-hover:scale-105"
-              >
-            {% else %}
-              <div class="w-full h-36 bg-gray-200 flex items-center justify-center rounded-lg">
-                No Image
-              </div>
-            {% endif %}
+    <p class="text-sm font-semibold text-gray-800 mt-3">
+      {{ collection.title }}
+    </p>
 
-            <!-- TITLE -->
-            <p class="text-sm font-semibold text-gray-800 mt-3">
-              {{ collection.title }}
-            </p>
+  </a>
 
-          </a>
-
-        {% endif %}
-      {% endfor %}
-
-    </div>
+{% endfor %}
 
     <!-- RIGHT PROMO BOX -->
     <div class="bg-gradient-to-br from-orange-200 to-orange-300 rounded-xl p-6 flex flex-col justify-between">
