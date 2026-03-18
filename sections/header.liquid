@@ -1,6 +1,5 @@
 <header class="bg-white border-b">
 
-  <!-- TOP BAR -->
   <div class="flex items-center justify-between px-6 py-3 max-w-7xl mx-auto">
     
     <!-- LOGO -->
@@ -23,27 +22,12 @@
       </form>
     </div>
 
-    <!-- RIGHT MENU -->
+    <!-- RIGHT -->
     <div class="flex items-center gap-4 text-sm">
       <a href="/account">👤 Account</a>
       <a href="/cart">🛒 Cart</a>
     </div>
 
-  </div>
-
-  <!-- CATEGORY NAV -->
-  <div class="bg-gray-50 border-t">
-    <div class="max-w-7xl mx-auto flex items-center gap-6 px-6 py-2 text-sm overflow-x-auto">
-      
-      <a href="/collections/all" class="font-medium">All Categories</a>
-
-      {% for collection in collections %}
-        <a href="{{ collection.url }}" class="hover:text-black text-gray-600 whitespace-nowrap">
-          {{ collection.title }}
-        </a>
-      {% endfor %}
-
-    </div>
   </div>
 
 </header>
