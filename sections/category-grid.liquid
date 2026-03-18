@@ -1,61 +1,33 @@
-<section class="py-10 bg-gray-100">
-  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 px-4">
+<!-- MIDDLE CATEGORY CARDS -->
+<div class="md:col-span-2 grid grid-cols-2 gap-5">
 
-    <!-- LEFT CATEGORY MENU -->
-    <div class="bg-white rounded-xl p-5 shadow-sm min-h-[260px]">
-      <h3 class="font-semibold text-lg mb-4">Categories</h3>
+  {% for link in linklists.main-menu.links limit:4 %}
 
-      <div class="space-y-2">
-        {% for link in linklists.main-menu.links %}
-          <a href="{{ link.url }}" 
-             class="flex justify-between items-center text-sm text-gray-600 hover:text-black transition">
-            {{ link.title }}
-            →
-          </a>
-        {% endfor %}
-      </div>
-    </div>
+    {% assign collection_handle = link.url | split: '/collections/' | last %}
+    {% assign collection = collections[collection_handle] %}
 
-    <!-- MIDDLE CATEGORY CARDS -->
-    <div class="md:col-span-2 grid grid-cols-2 gap-5">
+    <a href="{{ link.url }}" 
+       class="group bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-lg transition block overflow-hidden">
 
-      {% for link in linklists.main-menu.links limit:4 %}
+      <!-- IMAGE -->
+      {% if collection and collection.image %}
+        <img 
+          src="{{ collection.image | image_url: width: 400 }}" 
+          class="w-full h-36 object-cover rounded-lg transition duration-500 group-hover:scale-110"
+        >
+      {% else %}
+        <div class="w-full h-36 bg-gray-200 flex items-center justify-center rounded-lg">
+          No Image
+        </div>
+      {% endif %}
 
-        <a href="{{ link.url }}" 
-           class="group bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-lg transition block overflow-hidden">
+      <!-- TITLE -->
+      <p class="text-sm font-semibold text-gray-800 mt-3">
+        {{ link.title }}
+      </p>
 
-          <div class="w-full h-36 bg-gray-200 flex items-center justify-center rounded-lg">
-            {{ link.title }}
-          </div>
+    </a>
 
-          <p class="text-sm font-semibold text-gray-800 mt-3">
-            {{ link.title }}
-          </p>
+  {% endfor %}
 
-        </a>
-
-      {% endfor %}
-
-    </div>
-
-    <!-- RIGHT PROMO BOX -->
-    <div class="bg-gradient-to-br from-orange-200 to-orange-300 rounded-xl p-6 flex flex-col justify-between">
-      
-      <div>
-        <h3 class="text-xl font-bold mb-2 text-gray-900">
-          Super Deals
-        </h3>
-        <p class="text-sm text-gray-700">
-          Special offers this month
-        </p>
-      </div>
-
-      <a href="/collections/all" 
-         class="mt-6 bg-black text-white px-4 py-2 rounded-full text-center hover:bg-gray-800 transition">
-        View more
-      </a>
-
-    </div>
-
-  </div>
-</section>
+</div>
