@@ -3,7 +3,7 @@
 
     <div class="category-wrapper">
 
-      <!-- LEFT LIST -->
+      <!-- LEFT -->
       <div class="category-sidebar">
         <h3>Categories</h3>
         <ul>
@@ -26,10 +26,7 @@
             <a href="{{ block.settings.collection.url }}" class="category-card">
 
               {% if block.settings.collection.featured_image %}
-                <img 
-                  src="{{ block.settings.collection.featured_image | image_url: width: 400 }}" 
-                  alt="{{ block.settings.collection.title }}"
-                >
+                <img src="{{ block.settings.collection.featured_image | image_url: width: 400 }}">
               {% endif %}
 
               <p>{{ block.settings.collection.title }}</p>
@@ -39,7 +36,7 @@
         {% endfor %}
       </div>
 
-      <!-- RIGHT BOX -->
+      <!-- RIGHT -->
       <div class="category-offer">
         <h3>Super Deals</h3>
         <p>Special offers this month</p>
@@ -95,6 +92,7 @@
 {% schema %}
 {
   "name": "Category Grid",
+  "max_blocks": 6,
   "blocks": [
     {
       "type": "category",
@@ -110,7 +108,13 @@
   ],
   "presets": [
     {
-      "name": "Category Grid"
+      "name": "Category Grid",
+      "blocks": [
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" }
+      ]
     }
   ]
 }
