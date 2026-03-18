@@ -1,57 +1,15 @@
-<section class="py-10 bg-gray-100">
-  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 px-4">
+{% for collection in collections limit:4 %}
+  <a href="{{ collection.url }}" 
+     class="bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-lg transition block">
+    
+    {% if collection.image %}
+      <img src="{{ collection.image | image_url: width: 300 }}" 
+           class="w-full h-32 object-cover mb-2">
+    {% endif %}
 
-    <!-- LEFT CATEGORY MENU -->
-    <div class="bg-white rounded-xl p-4 space-y-3 shadow-sm">
-      <h3 class="font-semibold text-lg mb-2">Categories</h3>
+    <p class="text-sm font-medium">
+      {{ collection.title }}
+    </p>
 
-      {% for collection in collections limit:6 %}
-        <a href="{{ collection.url }}" 
-           class="flex justify-between items-center text-sm text-gray-700 hover:text-black">
-          {{ collection.title }}
-          →
-        </a>
-      {% endfor %}
-    </div>
-
-    <!-- CENTER PRODUCTS -->
-    <div class="md:col-span-2 grid grid-cols-2 gap-4">
-      
-      {% for product in collections.all.products limit:4 %}
-        <a href="/collections/all" class="block">
-        <div class="bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-lg transition">
-          </div>
-          </a>
-          
-          <img src="{{ product.featured_image | image_url: width: 300 }}" 
-               class="w-full h-32 object-contain mb-2">
-
-          <p class="text-sm font-medium">
-            {{ product.title | truncate: 40 }}
-          </p>
-        </div>
-      {% endfor %}
-
-    </div>
-
-    <!-- RIGHT PROMO -->
-    <div class="bg-orange-200 rounded-xl p-6 flex flex-col justify-between">
-      
-      <div>
-        <h3 class="text-xl font-bold mb-2">
-          Super Deals
-        </h3>
-        <p class="text-sm">
-          Special offers this month
-        </p>
-      </div>
-
-      <a href="/collections/all" 
-         class="mt-4 bg-black text-white px-4 py-2 rounded-full text-center">
-        View more
-      </a>
-
-    </div>
-
-  </div>
-</section>
+  </a>
+{% endfor %}
