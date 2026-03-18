@@ -17,40 +17,53 @@
     </div>
 
     <!-- MIDDLE CATEGORY CARDS -->
-    <div class="md:col-span-2 grid grid-cols-2 gap-5">
+    <!-- MIDDLE CATEGORY CARDS -->
+<div class="md:col-span-2 grid grid-cols-2 gap-5">
 
-      {% for link in linklists.main-menu.links limit:4 %}
+  {% for link in linklists.main-menu.links limit:4 %}
 
-        {% assign collection_handle = link.url | split: '/collections/' | last %}
-        {% assign collection = collections[collection_handle] %}
+    {% assign collection_handle = link.url | split: '/collections/' | last %}
+    {% assign collection = collections[collection_handle] %}
 
-        <a href="{{ link.url }}" 
-           class="group bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-xl transition block">
+    <a href="{{ link.url }}" 
+       class="group relative bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-xl transition duration-300 block overflow-hidden">
 
-          <!-- IMAGE FIXED -->
-          <div class="w-full aspect-[4/3] overflow-hidden rounded-lg">
-            {% if collection and collection.image %}
-              <img 
-                src="{{ collection.image | image_url: width: 600 }}" 
-                class="w-full h-full object-cover transition duration-500 group-hover:scale-110"
-              >
-            {% else %}
-              <div class="w-full h-full bg-gray-200 flex items-center justify-center">
-                No Image
-              </div>
-            {% endif %}
+      <!-- IMAGE -->
+      <div class="w-full aspect-[4/3] overflow-hidden rounded-lg relative">
+
+        {% if collection and collection.image %}
+          <img 
+            src="{{ collection.image | image_url: width: 600 }}" 
+            class="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+          >
+        {% else %}
+          <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+            No Image
           </div>
+        {% endif %}
 
-          <!-- TITLE -->
-          <p class="text-sm font-semibold text-gray-800 mt-3">
-            {{ link.title }}
-          </p>
+        <!-- 🔥 DARK OVERLAY -->
+        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300"></div>
 
-        </a>
+        <!-- 🔥 CENTER BUTTON -->
+        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+          <span class="bg-white text-black text-sm px-4 py-2 rounded-full font-medium shadow-md">
+            Shop Now
+          </span>
+        </div>
 
-      {% endfor %}
+      </div>
 
-    </div>
+      <!-- TITLE -->
+      <p class="text-sm font-semibold text-gray-800 mt-3">
+        {{ link.title }}
+      </p>
+
+    </a>
+
+  {% endfor %}
+
+</div>
 
     <!-- RIGHT PROMO BOX -->
     <div class="bg-gradient-to-br from-orange-200 to-orange-300 rounded-xl p-6 flex flex-col justify-between">
