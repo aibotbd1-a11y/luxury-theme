@@ -1,34 +1,50 @@
-<section class="py-16 bg-brand-light">
-  <div class="max-w-6xl mx-auto px-4">
-    
-    <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">
-      Shop by Category
-    </h2>
+<section class="py-10 bg-gray-100">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 px-4">
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-      
-      {% for collection in collections %}
-        <a href="{{ collection.url }}" class="group block">
-          
-          <div class="rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-lg transition">
-            
-            {% if collection.image %}
-              <img 
-                src="{{ collection.image | image_url: width: 500 }}" 
-                class="w-full h-40 object-cover group-hover:scale-105 transition duration-500"
-              >
-            {% endif %}
-            
-            <div class="p-4 text-center">
-              <h3 class="font-medium text-gray-900">
-                {{ collection.title }}
-              </h3>
-            </div>
+    <!-- LEFT MENU -->
+    <div class="bg-white rounded-xl p-4 space-y-3 shadow-sm">
+      <h3 class="font-semibold text-lg mb-2">Categories</h3>
 
-          </div>
-
+      {% for collection in collections limit:6 %}
+        <a href="{{ collection.url }}" 
+           class="flex justify-between items-center text-sm text-gray-700 hover:text-black">
+          {{ collection.title }}
+          →
         </a>
       {% endfor %}
+    </div>
+
+    <!-- PRODUCT CARDS -->
+    <div class="md:col-span-2 grid grid-cols-2 gap-4">
+      
+      {% for product in collections.all.products limit:4 %}
+        <div class="bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-lg transition">
+          
+          <img src="{{ product.featured_image | image_url: width: 300 }}" 
+               class="w-full h-32 object-contain mb-2">
+
+          <p class="text-sm font-medium">{{ product.title }}</p>
+        </div>
+      {% endfor %}
+
+    </div>
+
+    <!-- RIGHT PROMO -->
+    <div class="bg-orange-200 rounded-xl p-6 flex flex-col justify-between">
+      
+      <div>
+        <h3 class="text-xl font-bold mb-2">
+          Super Deals
+        </h3>
+        <p class="text-sm">
+          Special offers for this month
+        </p>
+      </div>
+
+      <a href="/collections/all" 
+         class="mt-4 bg-black text-white px-4 py-2 rounded-full text-center">
+        View more
+      </a>
 
     </div>
 
