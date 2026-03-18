@@ -20,11 +20,11 @@
     <div class="md:col-span-2 grid grid-cols-2 gap-5">
 
       {% for link in linklists.main-menu.links limit:4 %}
+
         <a href="{{ link.url }}" 
            class="group bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-lg transition block overflow-hidden">
 
-          <!-- IMAGE (fallback) -->
-          <div class="w-full h-36 bg-gray-200 rounded-lg flex items-center justify-center">
+          <div class="w-full h-36 bg-gray-200 flex items-center justify-center rounded-lg">
             {{ link.title }}
           </div>
 
@@ -33,21 +33,28 @@
           </p>
 
         </a>
+
       {% endfor %}
 
     </div>
 
-    <!-- RIGHT PROMO -->
+    <!-- RIGHT PROMO BOX -->
     <div class="bg-gradient-to-br from-orange-200 to-orange-300 rounded-xl p-6 flex flex-col justify-between">
+      
       <div>
-        <h3 class="text-xl font-bold mb-2 text-gray-900">Super Deals</h3>
-        <p class="text-sm text-gray-700">Special offers this month</p>
+        <h3 class="text-xl font-bold mb-2 text-gray-900">
+          Super Deals
+        </h3>
+        <p class="text-sm text-gray-700">
+          Special offers this month
+        </p>
       </div>
 
       <a href="/collections/all" 
          class="mt-6 bg-black text-white px-4 py-2 rounded-full text-center hover:bg-gray-800 transition">
         View more
       </a>
+
     </div>
 
   </div>
