@@ -9,107 +9,6 @@
  */
 {
   "sections": {
-    "17738843419d72f33f": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_9de9234_4CAFQg": {
-          "type": "ai_gen_block_9de9234",
-          "disabled": true,
-          "settings": {
-            "logo_height": 32,
-            "logo_text": "XTORE",
-            "logo_font_size": 20,
-            "logo_accent_color": "#0071e3",
-            "search_placeholder": "Search...",
-            "show_wishlist": true,
-            "background_color": "#ffffff",
-            "enable_glass_effect": true,
-            "desktop_width_percent": 100
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_9de9234_4CAFQg"
-      ],
-      "settings": {}
-    },
-    "17738854456930b8d2": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_a1dea87_QztN9x": {
-          "type": "ai_gen_block_a1dea87",
-          "settings": {
-            "section_padding": 20,
-            "grid_gap": 12,
-            "border_radius": 20,
-            "background_color": "#f9fafb",
-            "main_heading_size": 56,
-            "description_size": 16,
-            "button_bg_color": "#000000",
-            "button_text_color": "#ffffff",
-            "button_hover_bg_color": "#1a1a1a",
-            "slide_1_image": "shopify://shop_images/house-plant-in-white-pot_925x_343925fd-41d8-4c86-8c0f-e4ba9eefd465.jpg",
-            "slide_1_tag": "New Arrival",
-            "slide_1_heading": "Discover the Future of Style",
-            "slide_1_description": "Experience premium quality and timeless design with our latest collection.",
-            "slide_1_button_text": "Shop Now",
-            "slide_1_button_link": "",
-            "slide_2_image": "shopify://shop_images/spring-gardening-set-up_925x_2f3a9077-8bf6-4071-9105-dde31b310667.jpg",
-            "slide_2_tag": "Limited Edition",
-            "slide_2_heading": "Exclusive Collection Just Dropped",
-            "slide_2_description": "Get your hands on our most sought-after pieces before they're gone.",
-            "slide_2_button_text": "Explore Now",
-            "slide_2_button_link": "",
-            "slide_3_image": "shopify://shop_images/babys-room_925x_52c5201a-bbfe-466c-9164-3b80c798b512.jpg",
-            "slide_3_tag": "Best Sellers",
-            "slide_3_heading": "Customer Favorites Are Back",
-            "slide_3_description": "Shop the products everyone is talking about and see why they love them.",
-            "slide_3_button_text": "View Collection",
-            "slide_3_button_link": "",
-            "banner_top_image": "shopify://shop_images/woman-in-the-city_925x_610df984-c70d-47d2-b27b-52047cba95a2.jpg",
-            "banner_top_discount": "Up to 45% OFF",
-            "banner_top_heading": "Summer Sale Collection",
-            "banner_top_button_text": "Shop Sale",
-            "banner_top_link": "",
-            "banner_bottom_left_image": "shopify://shop_images/young-female-models-denim_925x_10d12717-ec99-4ff9-9cd5-7458626f15dd.jpg",
-            "banner_bottom_left_badge": "15% OFF",
-            "banner_bottom_left_title": "Eco-Friendly Essentials",
-            "banner_bottom_left_link": "",
-            "banner_bottom_right_image": "shopify://shop_images/comfortable-living-room-cat_925x_b816c4bb-863d-40db-9c81-0dc276bc8a14.jpg",
-            "banner_bottom_right_text": "New In",
-            "banner_bottom_right_title": "Premium Accessories",
-            "banner_bottom_right_link": ""
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_a1dea87_QztN9x"
-      ],
-      "settings": {}
-    },
-    "hero": {
-      "type": "hero",
-      "disabled": true,
-      "settings": {}
-    },
-    "categories": {
-      "type": "category-grid",
-      "settings": {}
-    },
-    "trust": {
-      "type": "trust-bar",
-      "settings": {}
-    },
-    "products": {
-      "type": "product-grid",
-      "settings": {}
-    },
-    "1773887421d72f23f7": {
-      "type": "_blocks",
-      "settings": {}
-    },
     "17738905158f57a9a1": {
       "type": "_blocks",
       "blocks": {
@@ -222,16 +121,117 @@
         "ai_gen_block_8c82111_Uepf9X"
       ],
       "settings": {}
+    },
+    "17738843419d72f33f": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_9de9234_4CAFQg": {
+          "type": "ai_gen_block_9de9234",
+          "disabled": true,
+          "settings": {
+            "logo_height": 32,
+            "logo_text": "XTORE",
+            "logo_font_size": 20,
+            "logo_accent_color": "#0071e3",
+            "search_placeholder": "Search...",
+            "show_wishlist": true,
+            "background_color": "#ffffff",
+            "enable_glass_effect": true,
+            "desktop_width_percent": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_9de9234_4CAFQg"
+      ],
+      "settings": {}
+    },
+    "17738854456930b8d2": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_a1dea87_QztN9x": {
+          "type": "ai_gen_block_a1dea87",
+          "settings": {
+            "section_padding": 20,
+            "grid_gap": 12,
+            "border_radius": 20,
+            "background_color": "#f9fafb",
+            "main_heading_size": 56,
+            "description_size": 16,
+            "button_bg_color": "#000000",
+            "button_text_color": "#ffffff",
+            "button_hover_bg_color": "#1a1a1a",
+            "slide_1_image": "shopify://shop_images/house-plant-in-white-pot_925x_343925fd-41d8-4c86-8c0f-e4ba9eefd465.jpg",
+            "slide_1_tag": "New Arrival",
+            "slide_1_heading": "Discover the Future of Style",
+            "slide_1_description": "Experience premium quality and timeless design with our latest collection.",
+            "slide_1_button_text": "Shop Now",
+            "slide_1_button_link": "",
+            "slide_2_image": "shopify://shop_images/spring-gardening-set-up_925x_2f3a9077-8bf6-4071-9105-dde31b310667.jpg",
+            "slide_2_tag": "Limited Edition",
+            "slide_2_heading": "Exclusive Collection Just Dropped",
+            "slide_2_description": "Get your hands on our most sought-after pieces before they're gone.",
+            "slide_2_button_text": "Explore Now",
+            "slide_2_button_link": "",
+            "slide_3_image": "shopify://shop_images/babys-room_925x_52c5201a-bbfe-466c-9164-3b80c798b512.jpg",
+            "slide_3_tag": "Best Sellers",
+            "slide_3_heading": "Customer Favorites Are Back",
+            "slide_3_description": "Shop the products everyone is talking about and see why they love them.",
+            "slide_3_button_text": "View Collection",
+            "slide_3_button_link": "",
+            "banner_top_image": "shopify://shop_images/woman-in-the-city_925x_610df984-c70d-47d2-b27b-52047cba95a2.jpg",
+            "banner_top_discount": "Up to 45% OFF",
+            "banner_top_heading": "Summer Sale Collection",
+            "banner_top_button_text": "Shop Sale",
+            "banner_top_link": "",
+            "banner_bottom_left_image": "shopify://shop_images/young-female-models-denim_925x_10d12717-ec99-4ff9-9cd5-7458626f15dd.jpg",
+            "banner_bottom_left_badge": "15% OFF",
+            "banner_bottom_left_title": "Eco-Friendly Essentials",
+            "banner_bottom_left_link": "",
+            "banner_bottom_right_image": "shopify://shop_images/comfortable-living-room-cat_925x_b816c4bb-863d-40db-9c81-0dc276bc8a14.jpg",
+            "banner_bottom_right_text": "New In",
+            "banner_bottom_right_title": "Premium Accessories",
+            "banner_bottom_right_link": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_a1dea87_QztN9x"
+      ],
+      "settings": {}
+    },
+    "hero": {
+      "type": "hero",
+      "disabled": true,
+      "settings": {}
+    },
+    "categories": {
+      "type": "category-grid",
+      "settings": {}
+    },
+    "trust": {
+      "type": "trust-bar",
+      "settings": {}
+    },
+    "products": {
+      "type": "product-grid",
+      "settings": {}
+    },
+    "1773887421d72f23f7": {
+      "type": "_blocks",
+      "settings": {}
     }
   },
   "order": [
+    "17738905158f57a9a1",
     "17738843419d72f33f",
     "17738854456930b8d2",
     "hero",
     "categories",
     "trust",
     "products",
-    "1773887421d72f23f7",
-    "17738905158f57a9a1"
+    "1773887421d72f23f7"
   ]
 }
