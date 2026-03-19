@@ -1,0 +1,1408 @@
+{% doc %}
+  @prompt
+    Create a modern e-commerce navigation bar inspired by Amazon, AliExpress, and Apple UI.
+    
+    ---
+    
+    ## 🧱 Layout Structure
+    
+    * Full-width horizontal navigation bar
+    * Clean, centered layout
+    * Two main sections:
+    
+    1. LEFT: "Shop By Categories" button
+    2. RIGHT: Navigation menu links
+    
+    ---
+    
+    ## 🟦 LEFT SECTION (CATEGORY BUTTON)
+    
+    ### Content:
+    
+    * Button text: "Shop By Categories"
+    * Icon: hamburger menu (3 lines)
+    
+    ### Design:
+    
+    * Background: primary color (blue or brand color)
+    * Text: white
+    * Shape: pill / rounded (full radius)
+    * Padding: medium-large
+    
+    ### Interaction:
+    
+    * Hover:
+    
+      * slight darken
+      * subtle scale (1.03)
+    * Click:
+    
+      * opens mega category dropdown
+    
+    ---
+    
+    ## 📂 CATEGORY DROPDOWN (MEGA MENU)
+    
+    ### Behavior:
+    
+    * Opens on click or hover
+    
+    ### Layout:
+    
+    * Multi-column dropdown (3–5 columns)
+    
+    ### Content:
+    
+    * Category groups
+    * Subcategories under each group
+    
+    Example:
+    
+    * Electronics
+    
+      * Mobile
+      * Laptop
+      * Accessories
+    
+    * Fashion
+    
+      * Men
+      * Women
+      * Kids
+    
+    ### Design:
+    
+    * White background
+    * Rounded corners
+    * Soft shadow
+    * Large padding
+    * Clean grid layout
+    
+    ---
+    
+    ## 📌 RIGHT SECTION (NAV LINKS)
+    
+    ### Menu Items:
+    
+    * Home
+    * Shop
+    * Categories (with SALE badge)
+    * Products (with HOT badge)
+    * Top deals
+    * Elements
+    
+    ---
+    
+    ## 🏷️ BADGES (IMPORTANT)
+    
+    * SALE badge:
+    
+      * Color: green
+      * Small rounded tag
+    * HOT badge:
+    
+      * Color: pink/red
+    
+    ### Style:
+    
+    * Small font
+    * Rounded corners
+    * Positioned beside menu text
+    
+    ---
+    
+    ## 🎨 UI STYLE (APPLE + AMAZON MIX)
+    
+    * Minimal but functional
+    * Clean typography
+    * Balanced spacing
+    * Subtle separators
+    
+    Font:
+    
+    * Inter / SF Pro
+    
+    ---
+    
+    ## ✨ HOVER EFFECTS
+    
+    * Menu items:
+    
+      * underline animation OR color change
+    * Dropdown:
+    
+      * smooth fade + slide down
+    
+    ---
+    
+    ## 🎞️ ANIMATION
+    
+    * Dropdown:
+    
+      * fade + translateY
+    * Button hover:
+    
+      * smooth transition (300ms)
+    
+    ---
+    
+    ## 📱 RESPONSIVE DESIGN
+    
+    * Tablet:
+    
+      * compress spacing
+    * Mobile:
+    
+      * hamburger full menu
+      * collapsible categories
+    
+    ---
+    
+    ## ⚙️ TECH REQUIREMENTS
+    
+    * Shopify Liquid compatible
+    * Tailwind CSS
+    * JS for dropdown toggle
+    
+    ---
+    
+    ## 🎯 FINAL GOAL
+    
+    Menu should:
+    
+    * Look like real eCommerce navigation
+    * Be clean like Apple
+    * Be powerful like Amazon
+    * Improve navigation UX
+    
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-nav-bar-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.nav_bg_color }};
+    border-bottom: 1px solid {{ block.settings.border_color }};
+    position: relative;
+    z-index: 1000;
+  }
+
+  .ai-nav-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    padding: {{ block.settings.nav_padding }}px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+  }
+
+  .ai-nav-left-{{ ai_gen_id }} {
+    flex-shrink: 0;
+  }
+
+  .ai-category-btn-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background-color: {{ block.settings.category_btn_bg }};
+    color: {{ block.settings.category_btn_text_color }};
+    border: none;
+    border-radius: 50px;
+    font-size: {{ block.settings.category_btn_font_size }}px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .ai-category-btn-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.category_btn_hover_bg }};
+    transform: scale(1.03);
+  }
+
+  .ai-hamburger-icon-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: 18px;
+  }
+
+  .ai-hamburger-icon-{{ ai_gen_id }} span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: currentColor;
+    border-radius: 2px;
+  }
+
+  .ai-nav-right-{{ ai_gen_id }} {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .ai-nav-menu-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.menu_gap }}px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ai-nav-item-{{ ai_gen_id }} {
+    position: relative;
+  }
+
+  .ai-nav-link-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    color: {{ block.settings.menu_text_color }};
+    text-decoration: none;
+    font-size: {{ block.settings.menu_font_size }}px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  .ai-nav-link-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.menu_hover_color }};
+  }
+
+  .ai-nav-link-{{ ai_gen_id }}::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 12px;
+    right: 12px;
+    height: 2px;
+    background-color: {{ block.settings.menu_hover_color }};
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .ai-nav-link-{{ ai_gen_id }}:hover::after {
+    transform: scaleX(1);
+  }
+
+  .ai-badge-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .ai-badge-sale-{{ ai_gen_id }} {
+    background-color: {{ block.settings.sale_badge_bg }};
+    color: {{ block.settings.sale_badge_text_color }};
+  }
+
+  .ai-badge-hot-{{ ai_gen_id }} {
+    background-color: {{ block.settings.hot_badge_bg }};
+    color: {{ block.settings.hot_badge_text_color }};
+  }
+
+  .ai-mega-menu-{{ ai_gen_id }} {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: {{ block.settings.dropdown_bg }};
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    border-radius: {{ block.settings.dropdown_radius }}px;
+    margin-top: 10px;
+    padding: {{ block.settings.dropdown_padding }}px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+
+  .ai-mega-menu-{{ ai_gen_id }}.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .ai-mega-menu-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.dropdown_columns }}, 1fr);
+    gap: 30px;
+  }
+
+  .ai-category-group-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ai-category-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.category_title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.category_title_color }};
+    margin: 0 0 8px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid {{ block.settings.border_color }};
+  }
+
+  .ai-subcategory-list-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ai-subcategory-link-{{ ai_gen_id }} {
+    color: {{ block.settings.subcategory_color }};
+    text-decoration: none;
+    font-size: {{ block.settings.subcategory_size }}px;
+    transition: color 0.3s ease, padding-left 0.3s ease;
+    display: block;
+  }
+
+  .ai-subcategory-link-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.subcategory_hover_color }};
+    padding-left: 8px;
+  }
+
+  .ai-mobile-toggle-{{ ai_gen_id }} {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: {{ block.settings.menu_text_color }};
+  }
+
+  .ai-mobile-toggle-{{ ai_gen_id }} svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  @media screen and (max-width: 990px) {
+    .ai-nav-container-{{ ai_gen_id }} {
+      gap: 15px;
+    }
+
+    .ai-nav-menu-{{ ai_gen_id }} {
+      gap: 15px;
+    }
+
+    .ai-category-btn-{{ ai_gen_id }} {
+      padding: 10px 18px;
+      font-size: 14px;
+    }
+
+    .ai-nav-link-{{ ai_gen_id }} {
+      font-size: 14px;
+      padding: 6px 8px;
+    }
+
+    .ai-mega-menu-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-mobile-toggle-{{ ai_gen_id }} {
+      display: block;
+    }
+
+    .ai-nav-right-{{ ai_gen_id }} {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 320px;
+      height: 100vh;
+      background-color: {{ block.settings.nav_bg_color }};
+      box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+      transition: right 0.3s ease;
+      z-index: 1001;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .ai-nav-right-{{ ai_gen_id }}.active {
+      right: 0;
+    }
+
+    .ai-nav-menu-{{ ai_gen_id }} {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      width: 100%;
+    }
+
+    .ai-nav-item-{{ ai_gen_id }} {
+      width: 100%;
+      border-bottom: 1px solid {{ block.settings.border_color }};
+    }
+
+    .ai-nav-link-{{ ai_gen_id }} {
+      width: 100%;
+      padding: 15px 0;
+    }
+
+    .ai-nav-link-{{ ai_gen_id }}::after {
+      display: none;
+    }
+
+    .ai-mega-menu-{{ ai_gen_id }} {
+      position: static;
+      width: 100%;
+      margin-top: 0;
+      padding: 15px 0;
+      box-shadow: none;
+      border-radius: 0;
+    }
+
+    .ai-mega-menu-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    .ai-category-btn-{{ ai_gen_id }} {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .ai-overlay-{{ ai_gen_id }} {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-overlay-{{ ai_gen_id }}.active {
+    display: block;
+    opacity: 1;
+  }
+{% endstyle %}
+
+<nav-bar-{{ ai_gen_id }} class="ai-nav-bar-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-nav-container-{{ ai_gen_id }}">
+    <div class="ai-nav-left-{{ ai_gen_id }}">
+      <button class="ai-category-btn-{{ ai_gen_id }}" data-category-toggle>
+        <span class="ai-hamburger-icon-{{ ai_gen_id }}">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+        <span>{{ block.settings.category_button_text }}</span>
+      </button>
+    </div>
+
+    <div class="ai-nav-right-{{ ai_gen_id }}">
+      <ul class="ai-nav-menu-{{ ai_gen_id }}">
+        {% if block.settings.show_home %}
+          <li class="ai-nav-item-{{ ai_gen_id }}">
+            <a href="{{ block.settings.home_link }}" class="ai-nav-link-{{ ai_gen_id }}">
+              {{ block.settings.home_text }}
+            </a>
+          </li>
+        {% endif %}
+
+        {% if block.settings.show_shop %}
+          <li class="ai-nav-item-{{ ai_gen_id }}">
+            <a href="{{ block.settings.shop_link }}" class="ai-nav-link-{{ ai_gen_id }}">
+              {{ block.settings.shop_text }}
+            </a>
+          </li>
+        {% endif %}
+
+        {% if block.settings.show_categories %}
+          <li class="ai-nav-item-{{ ai_gen_id }}">
+            <a href="{{ block.settings.categories_link }}" class="ai-nav-link-{{ ai_gen_id }}">
+              {{ block.settings.categories_text }}
+              {% if block.settings.show_sale_badge %}
+                <span class="ai-badge-{{ ai_gen_id }} ai-badge-sale-{{ ai_gen_id }}">{{ block.settings.sale_text }}</span>
+              {% endif %}
+            </a>
+          </li>
+        {% endif %}
+
+        {% if block.settings.show_products %}
+          <li class="ai-nav-item-{{ ai_gen_id }}">
+            <a href="{{ block.settings.products_link }}" class="ai-nav-link-{{ ai_gen_id }}">
+              {{ block.settings.products_text }}
+              {% if block.settings.show_hot_badge %}
+                <span class="ai-badge-{{ ai_gen_id }} ai-badge-hot-{{ ai_gen_id }}">{{ block.settings.hot_text }}</span>
+              {% endif %}
+            </a>
+          </li>
+        {% endif %}
+
+        {% if block.settings.show_deals %}
+          <li class="ai-nav-item-{{ ai_gen_id }}">
+            <a href="{{ block.settings.deals_link }}" class="ai-nav-link-{{ ai_gen_id }}">
+              {{ block.settings.deals_text }}
+            </a>
+          </li>
+        {% endif %}
+
+        {% if block.settings.show_elements %}
+          <li class="ai-nav-item-{{ ai_gen_id }}">
+            <a href="{{ block.settings.elements_link }}" class="ai-nav-link-{{ ai_gen_id }}">
+              {{ block.settings.elements_text }}
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+
+    <button class="ai-mobile-toggle-{{ ai_gen_id }}" data-mobile-toggle aria-label="Toggle menu">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="ai-mega-menu-{{ ai_gen_id }}" data-mega-menu>
+    <div class="ai-mega-menu-grid-{{ ai_gen_id }}">
+      {% if block.settings.show_category_1 %}
+        <div class="ai-category-group-{{ ai_gen_id }}">
+          <h3 class="ai-category-title-{{ ai_gen_id }}">{{ block.settings.category_1_title }}</h3>
+          <ul class="ai-subcategory-list-{{ ai_gen_id }}">
+            {% if block.settings.category_1_sub_1 != blank %}
+              <li><a href="{{ block.settings.category_1_sub_1_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_1_sub_1 }}</a></li>
+            {% endif %}
+            {% if block.settings.category_1_sub_2 != blank %}
+              <li><a href="{{ block.settings.category_1_sub_2_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_1_sub_2 }}</a></li>
+            {% endif %}
+            {% if block.settings.category_1_sub_3 != blank %}
+              <li><a href="{{ block.settings.category_1_sub_3_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_1_sub_3 }}</a></li>
+            {% endif %}
+            {% if block.settings.category_1_sub_4 != blank %}
+              <li><a href="{{ block.settings.category_1_sub_4_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_1_sub_4 }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_category_2 %}
+        <div class="ai-category-group-{{ ai_gen_id }}">
+          <h3 class="ai-category-title-{{ ai_gen_id }}">{{ block.settings.category_2_title }}</h3>
+          <ul class="ai-subcategory-list-{{ ai_gen_id }}">
+            {% if block.settings.category_2_sub_1 != blank %}
+              <li><a href="{{ block.settings.category_2_sub_1_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_2_sub_1 }}</a></li>
+            {% endif %}
+            {% if block.settings.category_2_sub_2 != blank %}
+              <li><a href="{{ block.settings.category_2_sub_2_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_2_sub_2 }}</a></li>
+            {% endif %}
+            {% if block.settings.category_2_sub_3 != blank %}
+              <li><a href="{{ block.settings.category_2_sub_3_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_2_sub_3 }}</a></li>
+            {% endif %}
+            {% if block.settings.category_2_sub_4 != blank %}
+              <li><a href="{{ block.settings.category_2_sub_4_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_2_sub_4 }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_category_3 %}
+        <div class="ai-category-group-{{ ai_gen_id }}">
+          <h3 class="ai-category-title-{{ ai_gen_id }}">{{ block.settings.category_3_title }}</h3>
+          <ul class="ai-subcategory-list-{{ ai_gen_id }}">
+            {% if block.settings.category_3_sub_1 != blank %}
+              <li><a href="{{ block.settings.category_3_sub_1_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_3_sub_1 }}</a></li>
+            {% endif %}
+            {% if block.settings.category_3_sub_2 != blank %}
+              <li><a href="{{ block.settings.category_3_sub_2_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_3_sub_2 }}</a></li>
+            {% endif %}
+            {% if block.settings.category_3_sub_3 != blank %}
+              <li><a href="{{ block.settings.category_3_sub_3_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_3_sub_3 }}</a></li>
+            {% endif %}
+            {% if block.settings.category_3_sub_4 != blank %}
+              <li><a href="{{ block.settings.category_3_sub_4_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_3_sub_4 }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_category_4 %}
+        <div class="ai-category-group-{{ ai_gen_id }}">
+          <h3 class="ai-category-title-{{ ai_gen_id }}">{{ block.settings.category_4_title }}</h3>
+          <ul class="ai-subcategory-list-{{ ai_gen_id }}">
+            {% if block.settings.category_4_sub_1 != blank %}
+              <li><a href="{{ block.settings.category_4_sub_1_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_4_sub_1 }}</a></li>
+            {% endif %}
+            {% if block.settings.category_4_sub_2 != blank %}
+              <li><a href="{{ block.settings.category_4_sub_2_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_4_sub_2 }}</a></li>
+            {% endif %}
+            {% if block.settings.category_4_sub_3 != blank %}
+              <li><a href="{{ block.settings.category_4_sub_3_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_4_sub_3 }}</a></li>
+            {% endif %}
+            {% if block.settings.category_4_sub_4 != blank %}
+              <li><a href="{{ block.settings.category_4_sub_4_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_4_sub_4 }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_category_5 %}
+        <div class="ai-category-group-{{ ai_gen_id }}">
+          <h3 class="ai-category-title-{{ ai_gen_id }}">{{ block.settings.category_5_title }}</h3>
+          <ul class="ai-subcategory-list-{{ ai_gen_id }}">
+            {% if block.settings.category_5_sub_1 != blank %}
+              <li><a href="{{ block.settings.category_5_sub_1_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_5_sub_1 }}</a></li>
+            {% endif %}
+            {% if block.settings.category_5_sub_2 != blank %}
+              <li><a href="{{ block.settings.category_5_sub_2_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_5_sub_2 }}</a></li>
+            {% endif %}
+            {% if block.settings.category_5_sub_3 != blank %}
+              <li><a href="{{ block.settings.category_5_sub_3_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_5_sub_3 }}</a></li>
+            {% endif %}
+            {% if block.settings.category_5_sub_4 != blank %}
+              <li><a href="{{ block.settings.category_5_sub_4_link }}" class="ai-subcategory-link-{{ ai_gen_id }}">{{ block.settings.category_5_sub_4 }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="ai-overlay-{{ ai_gen_id }}" data-overlay></div>
+</nav-bar-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class NavBar{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.categoryBtn = this.querySelector('[data-category-toggle]');
+        this.megaMenu = this.querySelector('[data-mega-menu]');
+        this.mobileToggle = this.querySelector('[data-mobile-toggle]');
+        this.navRight = this.querySelector('.ai-nav-right-{{ ai_gen_id }}');
+        this.overlay = this.querySelector('[data-overlay]');
+
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        if (this.categoryBtn && this.megaMenu) {
+          this.categoryBtn.addEventListener('click', () => {
+            this.toggleMegaMenu();
+          });
+
+          document.addEventListener('click', (e) => {
+            if (!this.categoryBtn.contains(e.target) && !this.megaMenu.contains(e.target)) {
+              this.closeMegaMenu();
+            }
+          });
+        }
+
+        if (this.mobileToggle && this.navRight) {
+          this.mobileToggle.addEventListener('click', () => {
+            this.toggleMobileMenu();
+          });
+        }
+
+        if (this.overlay) {
+          this.overlay.addEventListener('click', () => {
+            this.closeMobileMenu();
+          });
+        }
+      }
+
+      toggleMegaMenu() {
+        this.megaMenu.classList.toggle('active');
+      }
+
+      closeMegaMenu() {
+        this.megaMenu.classList.remove('active');
+      }
+
+      toggleMobileMenu() {
+        this.navRight.classList.toggle('active');
+        this.overlay.classList.toggle('active');
+        document.body.style.overflow = this.navRight.classList.contains('active') ? 'hidden' : '';
+      }
+
+      closeMobileMenu() {
+        this.navRight.classList.remove('active');
+        this.overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    customElements.define('nav-bar-{{ ai_gen_id }}', NavBar{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "E-commerce navigation",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum width",
+      "min": 1000,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "default": 1400
+    },
+    {
+      "type": "range",
+      "id": "nav_padding",
+      "label": "Vertical padding",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Category button"
+    },
+    {
+      "type": "text",
+      "id": "category_button_text",
+      "label": "Button text",
+      "default": "Shop By Categories"
+    },
+    {
+      "type": "range",
+      "id": "category_btn_font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "category_btn_bg",
+      "label": "Background",
+      "default": "#005BD3"
+    },
+    {
+      "type": "color",
+      "id": "category_btn_hover_bg",
+      "label": "Hover background",
+      "default": "#004499"
+    },
+    {
+      "type": "color",
+      "id": "category_btn_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Navigation menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_home",
+      "label": "Show Home",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "home_text",
+      "label": "Home text",
+      "default": "Home"
+    },
+    {
+      "type": "url",
+      "id": "home_link",
+      "label": "Home link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shop",
+      "label": "Show Shop",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shop_text",
+      "label": "Shop text",
+      "default": "Shop"
+    },
+    {
+      "type": "url",
+      "id": "shop_link",
+      "label": "Shop link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_categories",
+      "label": "Show Categories",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "categories_text",
+      "label": "Categories text",
+      "default": "Categories"
+    },
+    {
+      "type": "url",
+      "id": "categories_link",
+      "label": "Categories link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sale_badge",
+      "label": "Show SALE badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sale_text",
+      "label": "SALE text",
+      "default": "SALE"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_products",
+      "label": "Show Products",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "products_text",
+      "label": "Products text",
+      "default": "Products"
+    },
+    {
+      "type": "url",
+      "id": "products_link",
+      "label": "Products link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hot_badge",
+      "label": "Show HOT badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "hot_text",
+      "label": "HOT text",
+      "default": "HOT"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_deals",
+      "label": "Show Top deals",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "deals_text",
+      "label": "Deals text",
+      "default": "Top deals"
+    },
+    {
+      "type": "url",
+      "id": "deals_link",
+      "label": "Deals link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_elements",
+      "label": "Show Elements",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "elements_text",
+      "label": "Elements text",
+      "default": "Elements"
+    },
+    {
+      "type": "url",
+      "id": "elements_link",
+      "label": "Elements link"
+    },
+    {
+      "type": "range",
+      "id": "menu_gap",
+      "label": "Menu spacing",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "menu_font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Mega menu dropdown"
+    },
+    {
+      "type": "range",
+      "id": "dropdown_columns",
+      "label": "Columns",
+      "min": 3,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "dropdown_padding",
+      "label": "Padding",
+      "min": 20,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "dropdown_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "category_title_size",
+      "label": "Category title size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "subcategory_size",
+      "label": "Subcategory size",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Category 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_category_1",
+      "label": "Show category 1",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "category_1_title",
+      "label": "Title",
+      "default": "Electronics"
+    },
+    {
+      "type": "text",
+      "id": "category_1_sub_1",
+      "label": "Subcategory 1",
+      "default": "Mobile"
+    },
+    {
+      "type": "url",
+      "id": "category_1_sub_1_link",
+      "label": "Subcategory 1 link"
+    },
+    {
+      "type": "text",
+      "id": "category_1_sub_2",
+      "label": "Subcategory 2",
+      "default": "Laptop"
+    },
+    {
+      "type": "url",
+      "id": "category_1_sub_2_link",
+      "label": "Subcategory 2 link"
+    },
+    {
+      "type": "text",
+      "id": "category_1_sub_3",
+      "label": "Subcategory 3",
+      "default": "Accessories"
+    },
+    {
+      "type": "url",
+      "id": "category_1_sub_3_link",
+      "label": "Subcategory 3 link"
+    },
+    {
+      "type": "text",
+      "id": "category_1_sub_4",
+      "label": "Subcategory 4",
+      "default": "Headphones"
+    },
+    {
+      "type": "url",
+      "id": "category_1_sub_4_link",
+      "label": "Subcategory 4 link"
+    },
+    {
+      "type": "header",
+      "content": "Category 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_category_2",
+      "label": "Show category 2",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "category_2_title",
+      "label": "Title",
+      "default": "Fashion"
+    },
+    {
+      "type": "text",
+      "id": "category_2_sub_1",
+      "label": "Subcategory 1",
+      "default": "Men"
+    },
+    {
+      "type": "url",
+      "id": "category_2_sub_1_link",
+      "label": "Subcategory 1 link"
+    },
+    {
+      "type": "text",
+      "id": "category_2_sub_2",
+      "label": "Subcategory 2",
+      "default": "Women"
+    },
+    {
+      "type": "url",
+      "id": "category_2_sub_2_link",
+      "label": "Subcategory 2 link"
+    },
+    {
+      "type": "text",
+      "id": "category_2_sub_3",
+      "label": "Subcategory 3",
+      "default": "Kids"
+    },
+    {
+      "type": "url",
+      "id": "category_2_sub_3_link",
+      "label": "Subcategory 3 link"
+    },
+    {
+      "type": "text",
+      "id": "category_2_sub_4",
+      "label": "Subcategory 4",
+      "default": "Shoes"
+    },
+    {
+      "type": "url",
+      "id": "category_2_sub_4_link",
+      "label": "Subcategory 4 link"
+    },
+    {
+      "type": "header",
+      "content": "Category 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_category_3",
+      "label": "Show category 3",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "category_3_title",
+      "label": "Title",
+      "default": "Home & Living"
+    },
+    {
+      "type": "text",
+      "id": "category_3_sub_1",
+      "label": "Subcategory 1",
+      "default": "Furniture"
+    },
+    {
+      "type": "url",
+      "id": "category_3_sub_1_link",
+      "label": "Subcategory 1 link"
+    },
+    {
+      "type": "text",
+      "id": "category_3_sub_2",
+      "label": "Subcategory 2",
+      "default": "Decor"
+    },
+    {
+      "type": "url",
+      "id": "category_3_sub_2_link",
+      "label": "Subcategory 2 link"
+    },
+    {
+      "type": "text",
+      "id": "category_3_sub_3",
+      "label": "Subcategory 3",
+      "default": "Kitchen"
+    },
+    {
+      "type": "url",
+      "id": "category_3_sub_3_link",
+      "label": "Subcategory 3 link"
+    },
+    {
+      "type": "text",
+      "id": "category_3_sub_4",
+      "label": "Subcategory 4",
+      "default": "Bedding"
+    },
+    {
+      "type": "url",
+      "id": "category_3_sub_4_link",
+      "label": "Subcategory 4 link"
+    },
+    {
+      "type": "header",
+      "content": "Category 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_category_4",
+      "label": "Show category 4",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "category_4_title",
+      "label": "Title",
+      "default": "Sports & Outdoors"
+    },
+    {
+      "type": "text",
+      "id": "category_4_sub_1",
+      "label": "Subcategory 1",
+      "default": "Fitness"
+    },
+    {
+      "type": "url",
+      "id": "category_4_sub_1_link",
+      "label": "Subcategory 1 link"
+    },
+    {
+      "type": "text",
+      "id": "category_4_sub_2",
+      "label": "Subcategory 2",
+      "default": "Camping"
+    },
+    {
+      "type": "url",
+      "id": "category_4_sub_2_link",
+      "label": "Subcategory 2 link"
+    },
+    {
+      "type": "text",
+      "id": "category_4_sub_3",
+      "label": "Subcategory 3",
+      "default": "Cycling"
+    },
+    {
+      "type": "url",
+      "id": "category_4_sub_3_link",
+      "label": "Subcategory 3 link"
+    },
+    {
+      "type": "text",
+      "id": "category_4_sub_4",
+      "label": "Subcategory 4",
+      "default": "Water Sports"
+    },
+    {
+      "type": "url",
+      "id": "category_4_sub_4_link",
+      "label": "Subcategory 4 link"
+    },
+    {
+      "type": "header",
+      "content": "Category 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_category_5",
+      "label": "Show category 5",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "category_5_title",
+      "label": "Title",
+      "default": "Beauty & Health"
+    },
+    {
+      "type": "text",
+      "id": "category_5_sub_1",
+      "label": "Subcategory 1",
+      "default": "Skincare"
+    },
+    {
+      "type": "url",
+      "id": "category_5_sub_1_link",
+      "label": "Subcategory 1 link"
+    },
+    {
+      "type": "text",
+      "id": "category_5_sub_2",
+      "label": "Subcategory 2",
+      "default": "Makeup"
+    },
+    {
+      "type": "url",
+      "id": "category_5_sub_2_link",
+      "label": "Subcategory 2 link"
+    },
+    {
+      "type": "text",
+      "id": "category_5_sub_3",
+      "label": "Subcategory 3",
+      "default": "Haircare"
+    },
+    {
+      "type": "url",
+      "id": "category_5_sub_3_link",
+      "label": "Subcategory 3 link"
+    },
+    {
+      "type": "text",
+      "id": "category_5_sub_4",
+      "label": "Subcategory 4",
+      "default": "Wellness"
+    },
+    {
+      "type": "url",
+      "id": "category_5_sub_4_link",
+      "label": "Subcategory 4 link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "nav_bg_color",
+      "label": "Navigation background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "color",
+      "id": "menu_text_color",
+      "label": "Menu text",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "menu_hover_color",
+      "label": "Menu hover",
+      "default": "#005BD3"
+    },
+    {
+      "type": "color",
+      "id": "sale_badge_bg",
+      "label": "SALE badge background",
+      "default": "#00a854"
+    },
+    {
+      "type": "color",
+      "id": "sale_badge_text_color",
+      "label": "SALE badge text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "hot_badge_bg",
+      "label": "HOT badge background",
+      "default": "#ff4d6d"
+    },
+    {
+      "type": "color",
+      "id": "hot_badge_text_color",
+      "label": "HOT badge text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "dropdown_bg",
+      "label": "Dropdown background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "category_title_color",
+      "label": "Category title",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "subcategory_color",
+      "label": "Subcategory",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "subcategory_hover_color",
+      "label": "Subcategory hover",
+      "default": "#005BD3"
+    }
+  ],
+  "presets": [
+    {
+      "name": "E-commerce navigation"
+    }
+  ]
+}
+{% endschema %}
