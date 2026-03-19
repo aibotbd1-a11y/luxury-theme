@@ -14,6 +14,7 @@
       "blocks": {
         "ai_gen_block_9de9234_4CAFQg": {
           "type": "ai_gen_block_9de9234",
+          "disabled": true,
           "settings": {
             "logo_height": 32,
             "logo_text": "XTORE",
