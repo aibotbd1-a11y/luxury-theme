@@ -37,6 +37,46 @@
     "17738854456930b8d2": {
       "type": "_blocks",
       "blocks": {
+        "ai_gen_block_a1dea87_QztN9x": {
+          "type": "ai_gen_block_a1dea87",
+          "settings": {
+            "section_padding": 20,
+            "grid_gap": 20,
+            "border_radius": 20,
+            "background_color": "#f9fafb",
+            "main_heading_size": 56,
+            "description_size": 16,
+            "button_bg_color": "#000000",
+            "button_text_color": "#ffffff",
+            "button_hover_bg_color": "#1a1a1a",
+            "slide_1_tag": "New Arrival",
+            "slide_1_heading": "Discover the Future of Style",
+            "slide_1_description": "Experience premium quality and timeless design with our latest collection.",
+            "slide_1_button_text": "Shop Now",
+            "slide_1_button_link": "",
+            "slide_2_tag": "Limited Edition",
+            "slide_2_heading": "Exclusive Collection Just Dropped",
+            "slide_2_description": "Get your hands on our most sought-after pieces before they're gone.",
+            "slide_2_button_text": "Explore Now",
+            "slide_2_button_link": "",
+            "slide_3_tag": "Best Sellers",
+            "slide_3_heading": "Customer Favorites Are Back",
+            "slide_3_description": "Shop the products everyone is talking about and see why they love them.",
+            "slide_3_button_text": "View Collection",
+            "slide_3_button_link": "",
+            "banner_top_discount": "Up to 45% OFF",
+            "banner_top_heading": "Summer Sale Collection",
+            "banner_top_button_text": "Shop Sale",
+            "banner_top_link": "",
+            "banner_bottom_left_badge": "15% OFF",
+            "banner_bottom_left_title": "Eco-Friendly Essentials",
+            "banner_bottom_left_link": "",
+            "banner_bottom_right_text": "New In",
+            "banner_bottom_right_title": "Premium Accessories",
+            "banner_bottom_right_link": ""
+          },
+          "blocks": {}
+        },
         "ai_gen_block_dbd1f42_LfjqLD": {
           "type": "ai_gen_block_dbd1f42",
           "settings": {
@@ -79,6 +119,7 @@
         }
       },
       "block_order": [
+        "ai_gen_block_a1dea87_QztN9x",
         "ai_gen_block_dbd1f42_LfjqLD"
       ],
       "settings": {}
