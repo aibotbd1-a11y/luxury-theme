@@ -120,32 +120,7 @@
       "block_order": [
         "ai_gen_block_8c82111_Uepf9X"
       ],
-      "settings": {}
-    },
-    "17738843419d72f33f": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_9de9234_4CAFQg": {
-          "type": "ai_gen_block_9de9234",
-          "disabled": true,
-          "settings": {
-            "logo_height": 32,
-            "logo_text": "XTORE",
-            "logo_font_size": 20,
-            "logo_accent_color": "#0071e3",
-            "search_placeholder": "Search...",
-            "show_wishlist": true,
-            "background_color": "#ffffff",
-            "enable_glass_effect": true,
-            "desktop_width_percent": 100
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_9de9234_4CAFQg"
-      ],
-      "disabled": true,
+      "name": "Header Menu",
       "settings": {}
     },
     "17738854456930b8d2": {
@@ -201,6 +176,7 @@
       "block_order": [
         "ai_gen_block_a1dea87_QztN9x"
       ],
+      "name": "Hero Section",
       "settings": {}
     },
     "hero": {
@@ -220,19 +196,40 @@
       "type": "product-grid",
       "settings": {}
     },
-    "1773887421d72f23f7": {
+    "17738843419d72f33f": {
       "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_9de9234_4CAFQg": {
+          "type": "ai_gen_block_9de9234",
+          "disabled": true,
+          "settings": {
+            "logo_height": 32,
+            "logo_text": "XTORE",
+            "logo_font_size": 20,
+            "logo_accent_color": "#0071e3",
+            "search_placeholder": "Search...",
+            "show_wishlist": true,
+            "background_color": "#ffffff",
+            "enable_glass_effect": true,
+            "desktop_width_percent": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_9de9234_4CAFQg"
+      ],
+      "disabled": true,
       "settings": {}
     }
   },
   "order": [
     "17738905158f57a9a1",
-    "17738843419d72f33f",
     "17738854456930b8d2",
-    "hero",
     "categories",
     "trust",
     "products",
-    "1773887421d72f23f7"
+    "17738843419d72f33f",
+    "hero"
   ]
 }
