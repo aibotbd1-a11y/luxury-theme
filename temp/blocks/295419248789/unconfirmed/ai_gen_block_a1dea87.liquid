@@ -1,6 +1,1025 @@
+{% doc %}
+  @prompt
+    Create a premium e-commerce hero section with a modern multi-banner grid layout inspired by Apple UI and high-end Shopify stores.
+    
+    ---
+    
+    ## 🧱 Layout Structure
+    
+    Design a responsive grid layout:
+    
+    * Total grid: 3 columns
+    * Left side: 2/3 width (large hero slider)
+    * Right side: 1/3 width (3 stacked banners)
+    
+    Right side structure:
+    
+    * Top: 1 wide banner
+    * Bottom: 2 small banners (side-by-side)
+    
+    ---
+    
+    ## 🖼️ LEFT SECTION (MAIN HERO SLIDER)
+    
+    * Large full-height banner with background image
+    * Must be a SLIDER (multiple slides)
+    
+    ### Each slide includes:
+    
+    * Background image (full cover, high quality)
+    * Soft overlay (light gradient for readability)
+    
+    ### Text Content:
+    
+    * Small tag (top left)
+    * Big bold heading (2–3 lines max)
+    * Short description
+    * CTA button (rounded pill style)
+    
+    ### Animation:
+    
+    * Auto slide every 3–5 seconds
+    * Smooth fade or slide transition
+    * Text animation:
+    
+      * fade-up
+      * slight delay between elements
+    
+    ---
+    
+    ## 🧩 RIGHT TOP BANNER
+    
+    * Full background image
+    * Content aligned left
+    
+    ### Includes:
+    
+    * Discount text (e.g. "Up to 45% OFF")
+    * Heading (2 lines)
+    * CTA button (small pill)
+    
+    ### Design:
+    
+    * Gradient overlay (soft purple / blue)
+    * Product image blended into background
+    
+    ---
+    
+    ## 🧩 RIGHT BOTTOM LEFT
+    
+    * Small banner
+    * Full background image
+    
+    ### Includes:
+    
+    * Discount badge (e.g. "15% OFF")
+    * Short title
+    
+    ### Style:
+    
+    * Pastel green background tone
+    * Minimal text
+    
+    ---
+    
+    ## 🧩 RIGHT BOTTOM RIGHT
+    
+    * Small banner
+    * Full background image
+    
+    ### Includes:
+    
+    * Small text
+    * Product title
+    
+    ### Style:
+    
+    * Soft blue / gray tone
+    * Clean and minimal
+    
+    ---
+    
+    ## 🎨 UI STYLE (APPLE INSPIRED)
+    
+    * Minimal and clean
+    * Large rounded corners (16px–24px)
+    * No hard borders
+    * Soft shadows
+    * High spacing consistency
+    * Premium typography (Inter / SF Pro)
+    
+    ---
+    
+    ## ✨ HOVER EFFECTS
+    
+    Apply to ALL banners:
+    
+    * Image zoom:
+      scale: 1.05–1.1
+    * Overlay darkens slightly
+    * Smooth transition (300–400ms)
+    
+    ---
+    
+    ## 🎞️ ANIMATION
+    
+    * Page load:
+    
+      * fade-in + slight upward motion
+    * Slider:
+    
+      * smooth fade / slide transition
+    * Hover:
+    
+      * zoom + overlay + subtle shadow
+    
+    ---
+    
+    ## 🖼️ IMAGE RULES
+    
+    * Use full background images (no <img> tag look)
+    * High resolution (sharp)
+    * Proper object-fit: cover
+    
+    ---
+    
+    ## 📱 RESPONSIVE DESIGN
+    
+    * Tablet:
+    
+      * 2 column layout
+    * Mobile:
+    
+      * all banners stacked vertically
+      * slider becomes full width
+    
+    ---
+    
+    ## ⚙️ TECH STACK
+    
+    * Shopify Liquid compatible
+    * Tailwind CSS
+    * Minimal JavaScript for slider
+    
+    ---
+    
+    ## 🎯 FINAL GOAL
+    
+    The hero section should:
+    
+    * Look premium like Apple.com
+    * Feel smooth and modern
+    * Highlight offers clearly
+    * Be visually engaging and conversion-focused
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-hero-grid-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: {{ block.settings.section_padding }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-hero-grid__container-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: {{ block.settings.grid_gap }}px;
+    width: 100%;
+  }
+
+  .ai-hero-grid__main-slider-{{ ai_gen_id }} {
+    position: relative;
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+    height: 600px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .ai-hero-grid__slide-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+
+  .ai-hero-grid__slide-{{ ai_gen_id }}.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .ai-hero-grid__slide-bg-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s ease;
+  }
+
+  .ai-hero-grid__slide-{{ ai_gen_id }}.active .ai-hero-grid__slide-bg-{{ ai_gen_id }} {
+    animation: ai-hero-grid-zoom-{{ ai_gen_id }} 5s ease-out forwards;
+  }
+
+  @keyframes ai-hero-grid-zoom-{{ ai_gen_id }} {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.05);
+    }
+  }
+
+  .ai-hero-grid__slide-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+  }
+
+  .ai-hero-grid__slide-content-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px;
+    color: #ffffff;
+  }
+
+  .ai-hero-grid__slide-tag-{{ ai_gen_id }} {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .ai-hero-grid__slide-{{ ai_gen_id }}.active .ai-hero-grid__slide-tag-{{ ai_gen_id }} {
+    animation: ai-hero-grid-fade-up-{{ ai_gen_id }} 0.8s ease forwards;
+  }
+
+  .ai-hero-grid__slide-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.main_heading_size }}px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 20px 0;
+    max-width: 600px;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .ai-hero-grid__slide-{{ ai_gen_id }}.active .ai-hero-grid__slide-heading-{{ ai_gen_id }} {
+    animation: ai-hero-grid-fade-up-{{ ai_gen_id }} 0.8s ease 0.1s forwards;
+  }
+
+  .ai-hero-grid__slide-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    line-height: 1.6;
+    margin: 0 0 32px 0;
+    max-width: 500px;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .ai-hero-grid__slide-{{ ai_gen_id }}.active .ai-hero-grid__slide-description-{{ ai_gen_id }} {
+    animation: ai-hero-grid-fade-up-{{ ai_gen_id }} 0.8s ease 0.2s forwards;
+  }
+
+  .ai-hero-grid__slide-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 14px 32px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    align-self: flex-start;
+  }
+
+  .ai-hero-grid__slide-{{ ai_gen_id }}.active .ai-hero-grid__slide-button-{{ ai_gen_id }} {
+    animation: ai-hero-grid-fade-up-{{ ai_gen_id }} 0.8s ease 0.3s forwards;
+  }
+
+  .ai-hero-grid__slide-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg_color }};
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  @keyframes ai-hero-grid-fade-up-{{ ai_gen_id }} {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .ai-hero-grid__dots-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 30px;
+    left: 60px;
+    z-index: 3;
+    display: flex;
+    gap: 10px;
+  }
+
+  .ai-hero-grid__dot-{{ ai_gen_id }} {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+
+  .ai-hero-grid__dot-{{ ai_gen_id }}.active {
+    background-color: #ffffff;
+    width: 24px;
+    border-radius: 4px;
+  }
+
+  .ai-hero-grid__sidebar-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: {{ block.settings.grid_gap }}px;
+  }
+
+  .ai-hero-grid__banner-{{ ai_gen_id }} {
+    position: relative;
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .ai-hero-grid__banner-bg-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.4s ease;
+  }
+
+  .ai-hero-grid__banner-{{ ai_gen_id }}:hover .ai-hero-grid__banner-bg-{{ ai_gen_id }} {
+    transform: scale(1.08);
+  }
+
+  .ai-hero-grid__banner-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: background-color 0.4s ease;
+  }
+
+  .ai-hero-grid__banner-{{ ai_gen_id }}:hover .ai-hero-grid__banner-overlay-{{ ai_gen_id }} {
+    background-color: rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-hero-grid__banner-content-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+    color: #ffffff;
+  }
+
+  .ai-hero-grid__banner-top-{{ ai_gen_id }} {
+    min-height: 280px;
+  }
+
+  .ai-hero-grid__banner-discount-{{ ai_gen_id }} {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .ai-hero-grid__banner-heading-{{ ai_gen_id }} {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 20px 0;
+    max-width: 250px;
+  }
+
+  .ai-hero-grid__banner-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 10px 24px;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #000000;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+  }
+
+  .ai-hero-grid__banner-button-{{ ai_gen_id }}:hover {
+    background-color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .ai-hero-grid__bottom-banners-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ block.settings.grid_gap }}px;
+  }
+
+  .ai-hero-grid__banner-small-{{ ai_gen_id }} {
+    min-height: 280px;
+  }
+
+  .ai-hero-grid__banner-badge-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 6px 14px;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #000000;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .ai-hero-grid__banner-title-{{ ai_gen_id }} {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .ai-hero-grid__banner-text-{{ ai_gen_id }} {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    opacity: 0.9;
+  }
+
+  @media screen and (max-width: 1024px) {
+    .ai-hero-grid__container-{{ ai_gen_id }} {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .ai-hero-grid__main-slider-{{ ai_gen_id }} {
+      height: 500px;
+    }
+
+    .ai-hero-grid__slide-content-{{ ai_gen_id }} {
+      padding: 40px;
+    }
+
+    .ai-hero-grid__slide-heading-{{ ai_gen_id }} {
+      font-size: 40px;
+    }
+
+    .ai-hero-grid__dots-{{ ai_gen_id }} {
+      left: 40px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-hero-grid__container-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-hero-grid__main-slider-{{ ai_gen_id }} {
+      height: 500px;
+    }
+
+    .ai-hero-grid__slide-content-{{ ai_gen_id }} {
+      padding: 30px;
+    }
+
+    .ai-hero-grid__slide-heading-{{ ai_gen_id }} {
+      font-size: 32px;
+    }
+
+    .ai-hero-grid__slide-description-{{ ai_gen_id }} {
+      font-size: 14px;
+    }
+
+    .ai-hero-grid__dots-{{ ai_gen_id }} {
+      left: 30px;
+      bottom: 20px;
+    }
+
+    .ai-hero-grid__sidebar-{{ ai_gen_id }} {
+      grid-template-rows: auto auto;
+    }
+
+    .ai-hero-grid__bottom-banners-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-hero-grid__banner-content-{{ ai_gen_id }} {
+      padding: 24px;
+    }
+
+    .ai-hero-grid__banner-heading-{{ ai_gen_id }} {
+      font-size: 24px;
+    }
+  }
+{% endstyle %}
+
+<ai-hero-grid-{{ ai_gen_id }} class="ai-hero-grid-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-hero-grid__container-{{ ai_gen_id }}">
+    <div class="ai-hero-grid__main-slider-{{ ai_gen_id }}">
+      {% for i in (1..3) %}
+        {% liquid
+          assign slide_image_key = 'slide_' | append: i | append: '_image'
+          assign slide_tag_key = 'slide_' | append: i | append: '_tag'
+          assign slide_heading_key = 'slide_' | append: i | append: '_heading'
+          assign slide_description_key = 'slide_' | append: i | append: '_description'
+          assign slide_button_text_key = 'slide_' | append: i | append: '_button_text'
+          assign slide_button_link_key = 'slide_' | append: i | append: '_button_link'
+
+          assign slide_image = block.settings[slide_image_key]
+          assign slide_tag = block.settings[slide_tag_key]
+          assign slide_heading = block.settings[slide_heading_key]
+          assign slide_description = block.settings[slide_description_key]
+          assign slide_button_text = block.settings[slide_button_text_key]
+          assign slide_button_link = block.settings[slide_button_link_key]
+        %}
+
+        <div class="ai-hero-grid__slide-{{ ai_gen_id }} {% if forloop.first %}active{% endif %}" data-slide="{{ i }}">
+          {% if slide_image %}
+            <div class="ai-hero-grid__slide-bg-{{ ai_gen_id }}" style="background-image: url('{{ slide_image | image_url: width: 2000 }}');"></div>
+          {% else %}
+            <div class="ai-hero-grid__slide-bg-{{ ai_gen_id }}" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+          {% endif %}
+          <div class="ai-hero-grid__slide-overlay-{{ ai_gen_id }}"></div>
+          <div class="ai-hero-grid__slide-content-{{ ai_gen_id }}">
+            {% if slide_tag != blank %}
+              <span class="ai-hero-grid__slide-tag-{{ ai_gen_id }}">{{ slide_tag }}</span>
+            {% endif %}
+            {% if slide_heading != blank %}
+              <h2 class="ai-hero-grid__slide-heading-{{ ai_gen_id }}">{{ slide_heading }}</h2>
+            {% endif %}
+            {% if slide_description != blank %}
+              <p class="ai-hero-grid__slide-description-{{ ai_gen_id }}">{{ slide_description }}</p>
+            {% endif %}
+            {% if slide_button_text != blank %}
+              <a href="{{ slide_button_link | default: '#' }}" class="ai-hero-grid__slide-button-{{ ai_gen_id }}">
+                {{ slide_button_text }}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+
+      <div class="ai-hero-grid__dots-{{ ai_gen_id }}">
+        {% for i in (1..3) %}
+          <button class="ai-hero-grid__dot-{{ ai_gen_id }} {% if forloop.first %}active{% endif %}" data-slide="{{ i }}" aria-label="Go to slide {{ i }}"></button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="ai-hero-grid__sidebar-{{ ai_gen_id }}">
+      <a href="{{ block.settings.banner_top_link | default: '#' }}" class="ai-hero-grid__banner-{{ ai_gen_id }} ai-hero-grid__banner-top-{{ ai_gen_id }}">
+        {% if block.settings.banner_top_image %}
+          <div class="ai-hero-grid__banner-bg-{{ ai_gen_id }}" style="background-image: url('{{ block.settings.banner_top_image | image_url: width: 1000 }}');"></div>
+        {% else %}
+          <div class="ai-hero-grid__banner-bg-{{ ai_gen_id }}" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"></div>
+        {% endif %}
+        <div class="ai-hero-grid__banner-overlay-{{ ai_gen_id }}" style="background: linear-gradient(135deg, rgba(103, 58, 183, 0.5) 0%, rgba(81, 45, 168, 0.3) 100%);"></div>
+        <div class="ai-hero-grid__banner-content-{{ ai_gen_id }}">
+          {% if block.settings.banner_top_discount != blank %}
+            <div class="ai-hero-grid__banner-discount-{{ ai_gen_id }}">{{ block.settings.banner_top_discount }}</div>
+          {% endif %}
+          {% if block.settings.banner_top_heading != blank %}
+            <h3 class="ai-hero-grid__banner-heading-{{ ai_gen_id }}">{{ block.settings.banner_top_heading }}</h3>
+          {% endif %}
+          {% if block.settings.banner_top_button_text != blank %}
+            <span class="ai-hero-grid__banner-button-{{ ai_gen_id }}">{{ block.settings.banner_top_button_text }}</span>
+          {% endif %}
+        </div>
+      </a>
+
+      <div class="ai-hero-grid__bottom-banners-{{ ai_gen_id }}">
+        <a href="{{ block.settings.banner_bottom_left_link | default: '#' }}" class="ai-hero-grid__banner-{{ ai_gen_id }} ai-hero-grid__banner-small-{{ ai_gen_id }}">
+          {% if block.settings.banner_bottom_left_image %}
+            <div class="ai-hero-grid__banner-bg-{{ ai_gen_id }}" style="background-image: url('{{ block.settings.banner_bottom_left_image | image_url: width: 800 }}');"></div>
+          {% else %}
+            <div class="ai-hero-grid__banner-bg-{{ ai_gen_id }}" style="background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);"></div>
+          {% endif %}
+          <div class="ai-hero-grid__banner-overlay-{{ ai_gen_id }}" style="background: linear-gradient(135deg, rgba(76, 175, 80, 0.4) 0%, rgba(56, 142, 60, 0.2) 100%);"></div>
+          <div class="ai-hero-grid__banner-content-{{ ai_gen_id }}">
+            {% if block.settings.banner_bottom_left_badge != blank %}
+              <span class="ai-hero-grid__banner-badge-{{ ai_gen_id }}">{{ block.settings.banner_bottom_left_badge }}</span>
+            {% endif %}
+            {% if block.settings.banner_bottom_left_title != blank %}
+              <h3 class="ai-hero-grid__banner-title-{{ ai_gen_id }}">{{ block.settings.banner_bottom_left_title }}</h3>
+            {% endif %}
+          </div>
+        </a>
+
+        <a href="{{ block.settings.banner_bottom_right_link | default: '#' }}" class="ai-hero-grid__banner-{{ ai_gen_id }} ai-hero-grid__banner-small-{{ ai_gen_id }}">
+          {% if block.settings.banner_bottom_right_image %}
+            <div class="ai-hero-grid__banner-bg-{{ ai_gen_id }}" style="background-image: url('{{ block.settings.banner_bottom_right_image | image_url: width: 800 }}');"></div>
+          {% else %}
+            <div class="ai-hero-grid__banner-bg-{{ ai_gen_id }}" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);"></div>
+          {% endif %}
+          <div class="ai-hero-grid__banner-overlay-{{ ai_gen_id }}" style="background: linear-gradient(135deg, rgba(33, 150, 243, 0.4) 0%, rgba(21, 101, 192, 0.2) 100%);"></div>
+          <div class="ai-hero-grid__banner-content-{{ ai_gen_id }}">
+            {% if block.settings.banner_bottom_right_text != blank %}
+              <div class="ai-hero-grid__banner-text-{{ ai_gen_id }}">{{ block.settings.banner_bottom_right_text }}</div>
+            {% endif %}
+            {% if block.settings.banner_bottom_right_title != blank %}
+              <h3 class="ai-hero-grid__banner-title-{{ ai_gen_id }}">{{ block.settings.banner_bottom_right_title }}</h3>
+            {% endif %}
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</ai-hero-grid-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class AiHeroGrid{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.currentSlide = 0;
+        this.slides = this.querySelectorAll('.ai-hero-grid__slide-{{ ai_gen_id }}');
+        this.dots = this.querySelectorAll('.ai-hero-grid__dot-{{ ai_gen_id }}');
+        this.autoplayInterval = null;
+      }
+
+      connectedCallback() {
+        this.setupEventListeners();
+        this.startAutoplay();
+      }
+
+      disconnectedCallback() {
+        this.stopAutoplay();
+      }
+
+      setupEventListeners() {
+        this.dots.forEach((dot, index) => {
+          dot.addEventListener('click', () => {
+            this.goToSlide(index);
+            this.stopAutoplay();
+            this.startAutoplay();
+          });
+        });
+      }
+
+      goToSlide(index) {
+        this.slides[this.currentSlide].classList.remove('active');
+        this.dots[this.currentSlide].classList.remove('active');
+
+        this.currentSlide = index;
+
+        this.slides[this.currentSlide].classList.add('active');
+        this.dots[this.currentSlide].classList.add('active');
+      }
+
+      nextSlide() {
+        const next = (this.currentSlide + 1) % this.slides.length;
+        this.goToSlide(next);
+      }
+
+      startAutoplay() {
+        this.autoplayInterval = setInterval(() => {
+          this.nextSlide();
+        }, 4000);
+      }
+
+      stopAutoplay() {
+        if (this.autoplayInterval) {
+          clearInterval(this.autoplayInterval);
+        }
+      }
+    }
+
+    customElements.define('ai-hero-grid-{{ ai_gen_id }}', AiHeroGrid{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Premium hero grid",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Grid gap",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f9fafb"
+    },
+    {
+      "type": "header",
+      "content": "Main slider typography"
+    },
+    {
+      "type": "range",
+      "id": "main_heading_size",
+      "label": "Heading size",
+      "min": 30,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Hover background",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Slide 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_1_tag",
+      "label": "Tag",
+      "default": "New Arrival"
+    },
+    {
+      "type": "text",
+      "id": "slide_1_heading",
+      "label": "Heading",
+      "default": "Discover the Future of Style"
+    },
+    {
+      "type": "textarea",
+      "id": "slide_1_description",
+      "label": "Description",
+      "default": "Experience premium quality and timeless design with our latest collection."
+    },
+    {
+      "type": "text",
+      "id": "slide_1_button_text",
+      "label": "Button text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "slide_1_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Slide 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_2_tag",
+      "label": "Tag",
+      "default": "Limited Edition"
+    },
+    {
+      "type": "text",
+      "id": "slide_2_heading",
+      "label": "Heading",
+      "default": "Exclusive Collection Just Dropped"
+    },
+    {
+      "type": "textarea",
+      "id": "slide_2_description",
+      "label": "Description",
+      "default": "Get your hands on our most sought-after pieces before they're gone."
+    },
+    {
+      "type": "text",
+      "id": "slide_2_button_text",
+      "label": "Button text",
+      "default": "Explore Now"
+    },
+    {
+      "type": "url",
+      "id": "slide_2_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Slide 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_3_tag",
+      "label": "Tag",
+      "default": "Best Sellers"
+    },
+    {
+      "type": "text",
+      "id": "slide_3_heading",
+      "label": "Heading",
+      "default": "Customer Favorites Are Back"
+    },
+    {
+      "type": "textarea",
+      "id": "slide_3_description",
+      "label": "Description",
+      "default": "Shop the products everyone is talking about and see why they love them."
+    },
+    {
+      "type": "text",
+      "id": "slide_3_button_text",
+      "label": "Button text",
+      "default": "View Collection"
+    },
+    {
+      "type": "url",
+      "id": "slide_3_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Top banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_top_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_top_discount",
+      "label": "Discount text",
+      "default": "Up to 45% OFF"
+    },
+    {
+      "type": "text",
+      "id": "banner_top_heading",
+      "label": "Heading",
+      "default": "Summer Sale Collection"
+    },
+    {
+      "type": "text",
+      "id": "banner_top_button_text",
+      "label": "Button text",
+      "default": "Shop Sale"
+    },
+    {
+      "type": "url",
+      "id": "banner_top_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Bottom left banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_bottom_left_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_bottom_left_badge",
+      "label": "Badge text",
+      "default": "15% OFF"
+    },
+    {
+      "type": "text",
+      "id": "banner_bottom_left_title",
+      "label": "Title",
+      "default": "Eco-Friendly Essentials"
+    },
+    {
+      "type": "url",
+      "id": "banner_bottom_left_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Bottom right banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_bottom_right_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_bottom_right_text",
+      "label": "Small text",
+      "default": "New In"
+    },
+    {
+      "type": "text",
+      "id": "banner_bottom_right_title",
+      "label": "Title",
+      "default": "Premium Accessories"
+    },
+    {
+      "type": "url",
+      "id": "banner_bottom_right_link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Premium hero grid"
+    }
+  ]
+}
 {% endschema %}
