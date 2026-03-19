@@ -49,6 +49,55 @@
     "products": {
       "type": "product-grid",
       "settings": {}
+    },
+    "17738854456930b8d2": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_dbd1f42_LfjqLD": {
+          "type": "ai_gen_block_dbd1f42",
+          "settings": {
+            "desktop_width_percent": 100,
+            "section_padding": 40,
+            "grid_gap": 20,
+            "card_radius": 18,
+            "button_radius": 8,
+            "text_color": "#1a1a1a",
+            "cta_bg_color": "#000000",
+            "cta_text_color": "#ffffff",
+            "cta_hover_color": "#333333",
+            "show_banner_1": true,
+            "banner_1_bg_start": "#f8f9fa",
+            "banner_1_bg_end": "#e9ecef",
+            "banner_1_badge": "BUY 1 GET 1 FREE",
+            "banner_1_heading": "Multivitamin Healthy Life",
+            "banner_1_subtext": "Isotonix Multivitamins",
+            "banner_1_cta_text": "Get yours Today",
+            "banner_1_cta_link": "",
+            "show_banner_2": true,
+            "banner_2_bg_start": "#e9d5ff",
+            "banner_2_bg_end": "#ddd6fe",
+            "banner_2_badge": "Up to 45% OFF",
+            "banner_2_heading": "Get Healthy With Exclusive Medical Product Deals!",
+            "banner_2_cta_text": "View More",
+            "banner_2_cta_link": "",
+            "show_banner_3": true,
+            "banner_3_bg_start": "#d1fae5",
+            "banner_3_bg_end": "#a7f3d0",
+            "banner_3_badge": "15% OFF",
+            "banner_3_heading": "Women's Health Gummies",
+            "show_banner_4": true,
+            "banner_4_bg_start": "#dbeafe",
+            "banner_4_bg_end": "#bfdbfe",
+            "banner_4_heading": "Get 15% OFF",
+            "banner_4_subtext": "Premium Wellness Products"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_dbd1f42_LfjqLD"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -56,6 +105,7 @@
     "hero",
     "categories",
     "trust",
-    "products"
+    "products",
+    "17738854456930b8d2"
   ]
 }
