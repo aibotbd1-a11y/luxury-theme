@@ -1,6 +1,936 @@
+{% doc %}
+  @prompt
+    An interactive vertical timeline that highlights as the user scrolls, Create a modern e-commerce category grid section inspired by Apple UI and premium Shopify themes.
+    
+    ---
+    
+    ## 🧱 Layout Structure
+    
+    * 4-column responsive grid layout:
+    
+      1. LEFT: Category list menu (sidebar style)
+      2. MIDDLE: 2x2 category card grid (4 cards)
+      3. RIGHT: Promotional banner (highlight section)
+    
+    ---
+    
+    ## 🧩 LEFT SECTION (CATEGORY MENU)
+    
+    * Card-style container
+    
+    ### Content:
+    
+    * Title: "Categories"
+    * Category list (4–6 items)
+    
+    Example:
+    
+    * Furniture →
+    * Tree →
+    * Light →
+    * t-shirt →
+    
+    ### Design:
+    
+    * White background
+    * Rounded corners (16px–20px)
+    * Soft shadow
+    * Clean spacing
+    
+    ### Interaction:
+    
+    * Hover:
+    
+      * text color becomes darker
+      * slight translateX animation
+    
+    ---
+    
+    ## 🧩 MIDDLE SECTION (CATEGORY CARDS)
+    
+    * Grid: 2 columns × 2 rows
+    
+    ### Each Card Includes:
+    
+    * Image (top)
+    * Category title (bottom center)
+    
+    ### Design:
+    
+    * Card background: white
+    * Rounded corners (16px–20px)
+    * Padding inside card
+    * Image:
+    
+      * rounded corners
+      * object-fit: cover
+    
+    ---
+    
+    ## ✨ HOVER EFFECT (IMPORTANT)
+    
+    On hover:
+    
+    * Image zoom:
+      scale: 1.05–1.1
+    * Card shadow increases
+    * Smooth transition (300ms ease)
+    * Optional:
+    
+      * subtle dark overlay
+    
+    ---
+    
+    ## 🧩 RIGHT SECTION (PROMO CARD)
+    
+    ### Content:
+    
+    * Title: "Super Deals"
+    * Subtitle: "Special offers this month"
+    * Button: "View more"
+    
+    ### Design:
+    
+    * Background: soft orange gradient
+    * Rounded corners (20px)
+    * Big CTA button (pill style)
+    
+    ### Button:
+    
+    * Black background
+    * White text
+    * Rounded full
+    * Hover:
+    
+      * slightly darker
+      * scale effect
+    
+    ---
+    
+    ## 🎨 UI STYLE (APPLE INSPIRED)
+    
+    * Minimal design
+    * Clean layout
+    * Balanced spacing
+    * Soft shadows
+    * No harsh borders
+    * Light neutral background (#F5F5F7)
+    
+    Typography:
+    
+    * Inter / SF Pro
+    * Medium weight headings
+    * Subtle text colors
+    
+    ---
+    
+    ## 🎞️ ANIMATION
+    
+    * Section load:
+    
+      * fade-up animation
+    * Cards:
+    
+      * hover scale + shadow
+    * Smooth transitions everywhere
+    
+    ---
+    
+    ## 📱 RESPONSIVE DESIGN
+    
+    * Tablet:
+    
+      * 2 columns
+    * Mobile:
+    
+      * stacked layout
+      * sidebar becomes top section
+    
+    ---
+    
+    ## ⚙️ TECH REQUIREMENTS
+    
+    * Shopify Liquid compatible
+    * Tailwind CSS
+    * Clean reusable component structure
+    
+    ---
+    
+    ## 🎯 FINAL GOAL
+    
+    The category grid should:
+    
+    * Look clean and premium like Apple
+    * Be easy to scan
+    * Highlight categories clearly
+    * Improve user navigation and UX
+    
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-category-grid-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.section_background }};
+    padding: {{ block.settings.section_padding_top }}px 20px {{ block.settings.section_padding_bottom }}px;
+  }
+
+  .ai-category-grid-container-{{ ai_gen_id }} {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 280px 1fr 320px;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .ai-category-sidebar-{{ ai_gen_id }} {
+    background: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: 32px 24px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  .ai-category-sidebar-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.sidebar_title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 24px 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  .ai-category-menu-{{ ai_gen_id }} {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .ai-category-menu-item-{{ ai_gen_id }} {
+    margin-bottom: 4px;
+  }
+
+  .ai-category-menu-link-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    color: {{ block.settings.menu_text_color }};
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: {{ block.settings.menu_text_size }}px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  .ai-category-menu-link-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.menu_hover_bg }};
+    color: {{ block.settings.menu_hover_color }};
+    transform: translateX(4px);
+  }
+
+  .ai-category-menu-arrow-{{ ai_gen_id }} {
+    font-size: 14px;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-category-menu-link-{{ ai_gen_id }}:hover .ai-category-menu-arrow-{{ ai_gen_id }} {
+    opacity: 1;
+  }
+
+  .ai-category-cards-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .ai-category-card-{{ ai_gen_id }} {
+    background: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: block;
+    overflow: hidden;
+  }
+
+  .ai-category-card-{{ ai_gen_id }}:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+  }
+
+  .ai-category-card-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    background-color: #f5f5f7;
+  }
+
+  .ai-category-card-image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .ai-category-card-{{ ai_gen_id }}:hover .ai-category-card-image-{{ ai_gen_id }} {
+    transform: scale(1.08);
+  }
+
+  .ai-category-card-placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-category-card-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-category-card-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+    text-align: center;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  .ai-category-promo-{{ ai_gen_id }} {
+    background: {{ block.settings.promo_gradient_start }};
+    background: linear-gradient(135deg, {{ block.settings.promo_gradient_start }} 0%, {{ block.settings.promo_gradient_end }} 100%);
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: 40px 32px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 400px;
+  }
+
+  .ai-category-promo-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.promo_title_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.promo_text_color }};
+    margin: 0 0 12px 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  .ai-category-promo-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.promo_subtitle_size }}px;
+    color: {{ block.settings.promo_text_color }};
+    margin: 0 0 32px 0;
+    opacity: 0.9;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  .ai-category-promo-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 14px 32px;
+    background-color: {{ block.settings.promo_button_bg }};
+    color: {{ block.settings.promo_btn_text_color }};
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: {{ block.settings.promo_button_size }}px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  .ai-category-promo-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.promo_button_hover }};
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  @media screen and (max-width: 1200px) {
+    .ai-category-grid-container-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .ai-category-sidebar-{{ ai_gen_id }} {
+      order: 1;
+    }
+
+    .ai-category-cards-grid-{{ ai_gen_id }} {
+      order: 2;
+    }
+
+    .ai-category-promo-{{ ai_gen_id }} {
+      order: 3;
+      min-height: 300px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-category-cards-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-category-promo-{{ ai_gen_id }} {
+      padding: 32px 24px;
+      min-height: 250px;
+    }
+  }
+{% endstyle %}
+
+<category-grid-{{ ai_gen_id }} class="ai-category-grid-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-category-grid-container-{{ ai_gen_id }}">
+    <aside class="ai-category-sidebar-{{ ai_gen_id }}">
+      <h2 class="ai-category-sidebar-title-{{ ai_gen_id }}">{{ block.settings.sidebar_title }}</h2>
+      <ul class="ai-category-menu-{{ ai_gen_id }}">
+        {% for i in (1..6) %}
+          {% liquid
+            assign menu_enabled_key = 'menu_' | append: i | append: '_enabled'
+            assign menu_text_key = 'menu_' | append: i | append: '_text'
+            assign menu_link_key = 'menu_' | append: i | append: '_link'
+
+            assign menu_enabled = block.settings[menu_enabled_key]
+            assign menu_text = block.settings[menu_text_key]
+            assign menu_link = block.settings[menu_link_key]
+          %}
+
+          {% if menu_enabled and menu_text != blank %}
+            <li class="ai-category-menu-item-{{ ai_gen_id }}">
+              <a href="{{ menu_link }}" class="ai-category-menu-link-{{ ai_gen_id }}">
+                <span>{{ menu_text }}</span>
+                <span class="ai-category-menu-arrow-{{ ai_gen_id }}">→</span>
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </aside>
+
+    <div class="ai-category-cards-grid-{{ ai_gen_id }}">
+      {% for i in (1..4) %}
+        {% liquid
+          assign card_enabled_key = 'card_' | append: i | append: '_enabled'
+          assign card_image_key = 'card_' | append: i | append: '_image'
+          assign card_title_key = 'card_' | append: i | append: '_title'
+          assign card_link_key = 'card_' | append: i | append: '_link'
+
+          assign card_enabled = block.settings[card_enabled_key]
+          assign card_image = block.settings[card_image_key]
+          assign card_title = block.settings[card_title_key]
+          assign card_link = block.settings[card_link_key]
+        %}
+
+        {% if card_enabled %}
+          <a href="{{ card_link }}" class="ai-category-card-{{ ai_gen_id }}">
+            <div class="ai-category-card-image-wrapper-{{ ai_gen_id }}">
+              {% if card_image %}
+                <img
+                  src="{{ card_image | image_url: width: 600 }}"
+                  alt="{{ card_image.alt | escape }}"
+                  class="ai-category-card-image-{{ ai_gen_id }}"
+                  loading="lazy"
+                  width="600"
+                  height="600"
+                >
+              {% else %}
+                <div class="ai-category-card-placeholder-{{ ai_gen_id }}">
+                  {{ 'image' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+            </div>
+            {% if card_title != blank %}
+              <h3 class="ai-category-card-title-{{ ai_gen_id }}">{{ card_title }}</h3>
+            {% endif %}
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="ai-category-promo-{{ ai_gen_id }}">
+      {% if block.settings.promo_title != blank %}
+        <h2 class="ai-category-promo-title-{{ ai_gen_id }}">{{ block.settings.promo_title }}</h2>
+      {% endif %}
+      {% if block.settings.promo_subtitle != blank %}
+        <p class="ai-category-promo-subtitle-{{ ai_gen_id }}">{{ block.settings.promo_subtitle }}</p>
+      {% endif %}
+      {% if block.settings.promo_btn_text != blank %}
+        <a href="{{ block.settings.promo_btn_link }}" class="ai-category-promo-button-{{ ai_gen_id }}">
+          {{ block.settings.promo_btn_text }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</category-grid-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CategoryGrid{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.setupAccessibility();
+      }
+
+      setupAccessibility() {
+        const cards = this.querySelectorAll('.ai-category-card-{{ ai_gen_id }}');
+        cards.forEach((card) => {
+          card.setAttribute('role', 'link');
+        });
+
+        const menuLinks = this.querySelectorAll('.ai-category-menu-link-{{ ai_gen_id }}');
+        menuLinks.forEach((link) => {
+          link.setAttribute('role', 'link');
+        });
+      }
+    }
+
+    customElements.define('category-grid-{{ ai_gen_id }}', CategoryGrid{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Category grid",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section layout"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Background",
+      "default": "#F5F5F7"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Border radius",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image border radius",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Sidebar menu"
+    },
+    {
+      "type": "text",
+      "id": "sidebar_title",
+      "label": "Title",
+      "default": "Categories"
+    },
+    {
+      "type": "range",
+      "id": "sidebar_title_size",
+      "label": "Title size",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "checkbox",
+      "id": "menu_1_enabled",
+      "label": "Enable menu item 1",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "menu_1_text",
+      "label": "Text",
+      "default": "Furniture"
+    },
+    {
+      "type": "url",
+      "id": "menu_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "menu_2_enabled",
+      "label": "Enable menu item 2",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "menu_2_text",
+      "label": "Text",
+      "default": "Decor"
+    },
+    {
+      "type": "url",
+      "id": "menu_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "menu_3_enabled",
+      "label": "Enable menu item 3",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "menu_3_text",
+      "label": "Text",
+      "default": "Lighting"
+    },
+    {
+      "type": "url",
+      "id": "menu_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "menu_4_enabled",
+      "label": "Enable menu item 4",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "menu_4_text",
+      "label": "Text",
+      "default": "Textiles"
+    },
+    {
+      "type": "url",
+      "id": "menu_4_link",
+      "label": "Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "menu_5_enabled",
+      "label": "Enable menu item 5",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "menu_5_text",
+      "label": "Text",
+      "default": "Kitchen"
+    },
+    {
+      "type": "url",
+      "id": "menu_5_link",
+      "label": "Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "menu_6_enabled",
+      "label": "Enable menu item 6",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "menu_6_text",
+      "label": "Text",
+      "default": "Outdoor"
+    },
+    {
+      "type": "url",
+      "id": "menu_6_link",
+      "label": "Link"
+    },
+    {
+      "type": "range",
+      "id": "menu_text_size",
+      "label": "Menu text size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "menu_text_color",
+      "label": "Menu text color",
+      "default": "#1d1d1f"
+    },
+    {
+      "type": "color",
+      "id": "menu_hover_bg",
+      "label": "Menu hover background",
+      "default": "#f5f5f7"
+    },
+    {
+      "type": "color",
+      "id": "menu_hover_color",
+      "label": "Menu hover text color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Category cards"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_1_enabled",
+      "label": "Enable card 1",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "card_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "card_1_title",
+      "label": "Title",
+      "default": "Living Room"
+    },
+    {
+      "type": "url",
+      "id": "card_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_2_enabled",
+      "label": "Enable card 2",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "card_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "card_2_title",
+      "label": "Title",
+      "default": "Bedroom"
+    },
+    {
+      "type": "url",
+      "id": "card_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_3_enabled",
+      "label": "Enable card 3",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "card_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "card_3_title",
+      "label": "Title",
+      "default": "Kitchen"
+    },
+    {
+      "type": "url",
+      "id": "card_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_4_enabled",
+      "label": "Enable card 4",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "card_4_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "card_4_title",
+      "label": "Title",
+      "default": "Outdoor"
+    },
+    {
+      "type": "url",
+      "id": "card_4_link",
+      "label": "Link"
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "label": "Card title size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Promo banner"
+    },
+    {
+      "type": "text",
+      "id": "promo_title",
+      "label": "Title",
+      "default": "Super Deals"
+    },
+    {
+      "type": "range",
+      "id": "promo_title_size",
+      "label": "Title size",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "text",
+      "id": "promo_subtitle",
+      "label": "Subtitle",
+      "default": "Special offers this month"
+    },
+    {
+      "type": "range",
+      "id": "promo_subtitle_size",
+      "label": "Subtitle size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "text",
+      "id": "promo_btn_text",
+      "label": "Button text",
+      "default": "View more"
+    },
+    {
+      "type": "url",
+      "id": "promo_btn_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "promo_button_size",
+      "label": "Button text size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "promo_gradient_start",
+      "label": "Gradient start",
+      "default": "#FFB84D"
+    },
+    {
+      "type": "color",
+      "id": "promo_gradient_end",
+      "label": "Gradient end",
+      "default": "#FF8C42"
+    },
+    {
+      "type": "color",
+      "id": "promo_text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "promo_button_bg",
+      "label": "Button background",
+      "default": "#1d1d1f"
+    },
+    {
+      "type": "color",
+      "id": "promo_btn_text_color",
+      "label": "Button text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "promo_button_hover",
+      "label": "Button hover background",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#1d1d1f"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category grid"
+    }
+  ]
+}
 {% endschema %}
