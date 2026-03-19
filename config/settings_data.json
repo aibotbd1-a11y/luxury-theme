@@ -10,6 +10,9 @@
 {
   "current": {
     "checkout_logo_position": "center",
+    "checkout_logo_size": "medium",
+    "checkout_input_background_color_mode": "transparent",
+    "checkout_layout": "onepage",
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",

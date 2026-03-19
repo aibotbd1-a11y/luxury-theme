@@ -41,7 +41,7 @@
           "type": "ai_gen_block_dbd1f42",
           "settings": {
             "desktop_width_percent": 100,
-            "section_padding": 40,
+            "section_padding": 0,
             "grid_gap": 14,
             "card_radius": 16,
             "button_radius": 8,
