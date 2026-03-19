@@ -1,19 +1,57 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
+    "17738843419d72f33f": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_9de9234_4CAFQg": {
+          "type": "ai_gen_block_9de9234",
+          "settings": {
+            "logo_height": 32,
+            "logo_text": "XTORE",
+            "logo_font_size": 20,
+            "logo_accent_color": "#0071e3",
+            "search_placeholder": "Search...",
+            "show_wishlist": true,
+            "background_color": "#ffffff",
+            "enable_glass_effect": true,
+            "desktop_width_percent": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_9de9234_4CAFQg"
+      ],
+      "settings": {}
+    },
     "hero": {
-      "type": "hero"
+      "type": "hero",
+      "settings": {}
     },
     "categories": {
-      "type": "category-grid"
+      "type": "category-grid",
+      "settings": {}
     },
     "trust": {
-      "type": "trust-bar"
+      "type": "trust-bar",
+      "settings": {}
     },
     "products": {
-      "type": "product-grid"
+      "type": "product-grid",
+      "settings": {}
     }
   },
   "order": [
+    "17738843419d72f33f",
     "hero",
     "categories",
     "trust",
