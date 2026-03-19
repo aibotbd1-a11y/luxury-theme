@@ -1,6 +1,628 @@
+{% doc %}
+  @prompt
+    Create a full-width Apple-style hero slider section with the following features:
+    
+    - Full-width slider with auto-play and manual dot navigation controls
+    - Smooth fade transition between slides (not a sliding animation)
+    - Dark gradient overlay on top of background images
+    - Center-aligned text layout with:
+      - Bold, large heading
+      - Subheading text below the heading
+      - Rounded CTA button with hover scale animation effect
+    - Soft background glow effect using subtle gradients behind the content
+    - Optional product highlight image that can be shown alongside the text
+    - Each slide should be customizable with its own background image, heading, subheading, CTA button text and link, and optional product image
+    - The section should have settings for: auto-play speed, overlay darkness, glow color, and number of slides, Create a premium e-commerce hero section inspired by Apple-style UI and modern product landing pages.
+    
+    ## 🎯 Layout
+    
+    * Split layout (2 columns):
+    
+      * Left side: text content
+      * Right side: large product image
+    * Fully responsive
+    
+    ---
+    
+    ## 🎨 Background
+    
+    * Soft light gradient background (white → light gray → subtle purple/blue tint)
+    * Add abstract blurred shapes behind product (soft purple glow blob)
+    * Clean and minimal (no clutter)
+    
+    ---
+    
+    ## 🧱 Left Content (Text Area)
+    
+    ### Heading:
+    
+    * Large bold heading (2–3 lines)
+    * Example:
+      "New Deals Just Dropped"
+    * Use modern font (Inter / SF Pro style)
+    
+    ### Subtext:
+    
+    * Smaller gray text
+    * Example:
+      "Save up to 70% on headsets, cases, and more."
+    
+    ### CTA Button:
+    
+    * Rounded button (pill shape)
+    * Color: gradient (blue/purple or black)
+    * Hover:
+    
+      * slight scale
+      * shadow increase
+    
+    ---
+    
+    ## 🖼️ Right Content (Product Area)
+    
+    * Large high-quality product image (headphones / gadget)
+    * Slight tilt or 3D perspective
+    * Floating effect (not flat)
+    * Add:
+    
+      * soft shadow under product
+      * glow background shape (purple blob)
+    * Optional: small supporting product images behind (blurred)
+    
+    ---
+    
+    ## ✨ Effects & Animation
+    
+    * Smooth fade-in on load
+    * Image slight floating animation
+    * Button hover scale (1.05)
+    * Subtle parallax effect (optional)
+    
+    ---
+    
+    ## 🎨 Design Style
+    
+    * Apple-like:
+    
+      * lots of white space
+      * minimal UI
+      * smooth transitions
+    * Premium product highlight focus
+    
+    ---
+    
+    ## 📱 Responsiveness
+    
+    * Mobile:
+    
+      * stack layout (text on top, image below)
+      * center aligned text
+    
+    ---
+    
+    ## ⚙️ Tech
+    
+    * Tailwind CSS
+    * Lightweight JS (optional)
+    * No heavy libraries
+    
+    ---
+    
+    ## 🎯 Final Goal
+    
+    Hero section should:
+    
+    * Look premium and modern
+    * Highlight product clearly
+    * Increase conversion (clear CTA)
+    * Feel like Apple + high-end e-commerce
+    
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-premium-hero-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    min-height: 600px;
+    overflow: hidden;
+    display: block;
+    background: linear-gradient(135deg, 
+      {{ block.settings.gradient_color_1 }} 0%, 
+      {{ block.settings.gradient_color_2 }} 50%, 
+      {{ block.settings.gradient_color_3 }} 100%);
+  }
+
+  .ai-premium-hero__background-blob-{{ ai_gen_id }} {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, {{ block.settings.blob_color }} 0%, transparent 70%);
+    opacity: 0.3;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+
+  .ai-premium-hero__blob-1-{{ ai_gen_id }} {
+    top: -200px;
+    right: -100px;
+  }
+
+  .ai-premium-hero__blob-2-{{ ai_gen_id }} {
+    bottom: -150px;
+    left: -150px;
+    width: 500px;
+    height: 500px;
+  }
+
+  .ai-premium-hero__container-{{ ai_gen_id }} {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 80px 40px;
+    z-index: 2;
+  }
+
+  .ai-premium-hero__grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    min-height: 500px;
+  }
+
+  .ai-premium-hero__content-{{ ai_gen_id }} {
+    opacity: 0;
+    animation: ai-premium-hero-fade-in-{{ ai_gen_id }} 1s ease-out 0.2s forwards;
+  }
+
+  .ai-premium-hero__badge-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: {{ block.settings.badge_bg_color }};
+    color: {{ block.settings.badge_text_color }};
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .ai-premium-hero__heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.heading_color }};
+    line-height: 1.1;
+    margin: 0 0 24px;
+    letter-spacing: -0.03em;
+  }
+
+  .ai-premium-hero__subtext-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtext_size }}px;
+    color: {{ block.settings.subtext_color }};
+    line-height: 1.6;
+    margin: 0 0 40px;
+    max-width: 500px;
+    opacity: 0.85;
+  }
+
+  .ai-premium-hero__cta-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 40px;
+    background: {{ block.settings.cta_gradient_start }};
+    background: linear-gradient(135deg, {{ block.settings.cta_gradient_start }} 0%, {{ block.settings.cta_gradient_end }} 100%);
+    color: {{ block.settings.cta_text_color }};
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-premium-hero__cta-{{ ai_gen_id }}:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-premium-hero__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: ai-premium-hero-fade-in-{{ ai_gen_id }} 1s ease-out 0.4s forwards;
+  }
+
+  .ai-premium-hero__product-glow-{{ ai_gen_id }} {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, {{ block.settings.product_glow_color }} 0%, transparent 70%);
+    opacity: 0.4;
+    filter: blur(60px);
+    z-index: 1;
+    animation: ai-premium-hero-float-{{ ai_gen_id }} 6s ease-in-out infinite;
+  }
+
+  .ai-premium-hero__product-image-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+    max-width: 100%;
+    height: auto;
+    animation: ai-premium-hero-float-{{ ai_gen_id }} 4s ease-in-out infinite;
+  }
+
+  .ai-premium-hero__product-image-{{ ai_gen_id }} img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.15));
+    transform: perspective(1000px) rotateY(-5deg);
+  }
+
+  .ai-premium-hero__image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-premium-hero__image-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-premium-hero__empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  @keyframes ai-premium-hero-fade-in-{{ ai_gen_id }} {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes ai-premium-hero-float-{{ ai_gen_id }} {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @media screen and (max-width: 968px) {
+    .ai-premium-hero__grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      text-align: center;
+    }
+
+    .ai-premium-hero__content-{{ ai_gen_id }} {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .ai-premium-hero__heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.7 }}px;
+    }
+
+    .ai-premium-hero__subtext-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subtext_size | times: 0.9 }}px;
+    }
+
+    .ai-premium-hero__container-{{ ai_gen_id }} {
+      padding: 60px 24px;
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    .ai-premium-hero__heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.5 }}px;
+    }
+
+    .ai-premium-hero__subtext-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subtext_size | times: 0.85 }}px;
+    }
+
+    .ai-premium-hero__cta-{{ ai_gen_id }} {
+      padding: 14px 32px;
+      font-size: 15px;
+    }
+
+    .ai-premium-hero__container-{{ ai_gen_id }} {
+      padding: 40px 20px;
+    }
+  }
+{% endstyle %}
+
+<premium-hero-{{ ai_gen_id }}
+  class="ai-premium-hero-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-premium-hero__background-blob-{{ ai_gen_id }} ai-premium-hero__blob-1-{{ ai_gen_id }}"></div>
+  <div class="ai-premium-hero__background-blob-{{ ai_gen_id }} ai-premium-hero__blob-2-{{ ai_gen_id }}"></div>
+
+  <div class="ai-premium-hero__container-{{ ai_gen_id }}">
+    <div class="ai-premium-hero__grid-{{ ai_gen_id }}">
+      <div class="ai-premium-hero__content-{{ ai_gen_id }}">
+        {% if block.settings.badge_text != blank %}
+          <span class="ai-premium-hero__badge-{{ ai_gen_id }}">
+            {{ block.settings.badge_text }}
+          </span>
+        {% endif %}
+
+        {% if block.settings.heading != blank %}
+          <h1 class="ai-premium-hero__heading-{{ ai_gen_id }}">
+            {{ block.settings.heading }}
+          </h1>
+        {% endif %}
+
+        {% if block.settings.subtext != blank %}
+          <p class="ai-premium-hero__subtext-{{ ai_gen_id }}">
+            {{ block.settings.subtext }}
+          </p>
+        {% endif %}
+
+        {% if block.settings.cta_text != blank %}
+          <a
+            href="{{ block.settings.cta_link | default: '#' }}"
+            class="ai-premium-hero__cta-{{ ai_gen_id }}"
+          >
+            {{ block.settings.cta_text }}
+          </a>
+        {% endif %}
+      </div>
+
+      <div class="ai-premium-hero__image-wrapper-{{ ai_gen_id }}">
+        <div class="ai-premium-hero__product-glow-{{ ai_gen_id }}"></div>
+
+        {% if block.settings.product_image %}
+          <div class="ai-premium-hero__product-image-{{ ai_gen_id }}">
+            <img
+              src="{{ block.settings.product_image | image_url: width: 1000 }}"
+              alt="{{ block.settings.product_image.alt | escape }}"
+              loading="eager"
+              width="{{ block.settings.product_image.width }}"
+              height="{{ block.settings.product_image.height }}"
+            >
+          </div>
+        {% else %}
+          <div class="ai-premium-hero__image-placeholder-{{ ai_gen_id }}">
+            {{ 'product-1' | placeholder_svg_tag }}
+            <div class="ai-premium-hero__empty-state-{{ ai_gen_id }}">
+              Add a product image
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</premium-hero-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class PremiumHero{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.setupParallax();
+      }
+
+      setupParallax() {
+        const productImage = this.querySelector('.ai-premium-hero__product-image-{{ ai_gen_id }}');
+        const blobs = this.querySelectorAll('.ai-premium-hero__background-blob-{{ ai_gen_id }}');
+
+        if (!productImage) return;
+
+        window.addEventListener('scroll', () => {
+          const scrolled = window.pageYOffset;
+          const rate = scrolled * 0.3;
+
+          if (productImage) {
+            productImage.style.transform = `translateY(${rate}px)`;
+          }
+
+          blobs.forEach((blob, index) => {
+            const blobRate = scrolled * (0.1 + index * 0.05);
+            blob.style.transform = `translateY(${blobRate}px)`;
+          });
+        });
+      }
+    }
+
+    customElements.define('premium-hero-{{ ai_gen_id }}', PremiumHero{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Premium hero section",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "New Arrival"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "New Deals Just Dropped"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Save up to 70% on headsets, cases, and more. Limited time offer."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product image"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 32,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "subtext_size",
+      "label": "Subtext size",
+      "min": 14,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "gradient_color_1",
+      "label": "Background gradient start",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "gradient_color_2",
+      "label": "Background gradient middle",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "gradient_color_3",
+      "label": "Background gradient end",
+      "default": "#f0f0ff"
+    },
+    {
+      "type": "color",
+      "id": "blob_color",
+      "label": "Background blob color",
+      "default": "#a78bfa"
+    },
+    {
+      "type": "color",
+      "id": "product_glow_color",
+      "label": "Product glow color",
+      "default": "#8b5cf6"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Subtext color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Badge"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Badge background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "color",
+      "id": "cta_gradient_start",
+      "label": "Button gradient start",
+      "default": "#6366f1"
+    },
+    {
+      "type": "color",
+      "id": "cta_gradient_end",
+      "label": "Button gradient end",
+      "default": "#8b5cf6"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Premium hero section"
+    }
+  ]
+}
 {% endschema %}
