@@ -1,6 +1,610 @@
+{% doc %}
+  @prompt
+    Create an Apple-style sticky header with the following features:
+    
+    - Sticky positioning with glassmorphism blur background effect (backdrop-filter: blur) and subtle transparency
+    - Subtle border bottom (light, thin)
+    - Three-column layout:
+      - Left: Clean minimal logo
+      - Center: Rounded search bar with smooth focus animation (expands or glows on focus)
+      - Right: Account icon, Cart icon (with hover scale + rotate animation), and Wishlist icon
+    - Cart icon should have a badge for item count
+    - All icons should be clean and minimal in Apple style
+    - Smooth transitions and hover animations throughout
+    - The header should feel lightweight, modern, and premium
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-apple-header-{{ ai_gen_id }} {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    background-color: {{ block.settings.header_bg_color | color_modify: 'alpha', 0.8 }};
+    backdrop-filter: blur({{ block.settings.blur_amount }}px);
+    -webkit-backdrop-filter: blur({{ block.settings.blur_amount }}px);
+    border-bottom: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    transition: all 0.3s ease;
+    display: block;
+  }
+
+  .ai-apple-header__container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    padding: {{ block.settings.vertical_padding }}px {{ block.settings.horizontal_padding }}px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .ai-apple-header__logo-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .ai-apple-header__logo-link-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-apple-header__logo-link-{{ ai_gen_id }}:hover {
+    opacity: 0.7;
+  }
+
+  .ai-apple-header__logo-image-{{ ai_gen_id }} {
+    max-height: {{ block.settings.logo_height }}px;
+    width: auto;
+    display: block;
+  }
+
+  .ai-apple-header__logo-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.logo_text_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.logo_text_color }};
+    letter-spacing: -0.5px;
+  }
+
+  .ai-apple-header__search-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+  }
+
+  .ai-apple-header__search-form-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    max-width: {{ block.settings.search_max_width }}px;
+  }
+
+  .ai-apple-header__search-input-{{ ai_gen_id }} {
+    width: 100%;
+    padding: {{ block.settings.search_padding }}px {{ block.settings.search_padding | times: 2.5 }}px;
+    border: 1px solid {{ block.settings.search_border_color }};
+    border-radius: {{ block.settings.search_border_radius }}px;
+    background-color: {{ block.settings.search_bg_color }};
+    color: {{ block.settings.search_text_color }};
+    font-size: {{ block.settings.search_font_size }}px;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+
+  .ai-apple-header__search-input-{{ ai_gen_id }}::placeholder {
+    color: {{ block.settings.search_placeholder_color }};
+  }
+
+  .ai-apple-header__search-input-{{ ai_gen_id }}:focus {
+    border-color: {{ block.settings.search_focus_border_color }};
+    {% if block.settings.search_focus_glow > 0 %}
+      box-shadow: 0 0 0 {{ block.settings.search_focus_glow }}px {{ block.settings.search_focus_border_color | color_modify: 'alpha', 0.3 }};
+    {% endif %}
+    {% if block.settings.enable_search_focus_scale %}
+      transform: scale(1.02);
+    {% endif %}
+  }
+
+  .ai-apple-header__search-icon-{{ ai_gen_id }} {
+    position: absolute;
+    left: {{ block.settings.search_padding }}px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+  }
+
+  .ai-apple-header__search-icon-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    stroke: {{ block.settings.search_icon_color }};
+  }
+
+  .ai-apple-header__actions-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: {{ block.settings.icon_spacing }}px;
+  }
+
+  .ai-apple-header__action-{{ ai_gen_id }} {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    text-decoration: none;
+    color: {{ block.settings.icon_color }};
+  }
+
+  .ai-apple-header__action-{{ ai_gen_id }}:hover {
+    transform: scale(1.1);
+  }
+
+  .ai-apple-header__action-{{ ai_gen_id }}--cart:hover {
+    transform: scale(1.1) rotate({{ block.settings.cart_hover_rotate }}deg);
+  }
+
+  .ai-apple-header__action-{{ ai_gen_id }} svg {
+    width: {{ block.settings.icon_size | times: 0.7 }}px;
+    height: {{ block.settings.icon_size | times: 0.7 }}px;
+    stroke: currentColor;
+    fill: none;
+  }
+
+  .ai-apple-header__cart-badge-{{ ai_gen_id }} {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background-color: {{ block.settings.badge_bg_color }};
+    color: {{ block.settings.badge_text_color }};
+    font-size: {{ block.settings.badge_font_size }}px;
+    font-weight: 600;
+    min-width: {{ block.settings.badge_size }}px;
+    height: {{ block.settings.badge_size }}px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-apple-header__container-{{ ai_gen_id }} {
+      grid-template-columns: auto 1fr auto;
+      gap: 12px;
+    }
+
+    .ai-apple-header__search-{{ ai_gen_id }} {
+      grid-column: 1 / -1;
+      order: 3;
+    }
+
+    .ai-apple-header__logo-{{ ai_gen_id }} {
+      order: 1;
+    }
+
+    .ai-apple-header__actions-{{ ai_gen_id }} {
+      order: 2;
+    }
+  }
+{% endstyle %}
+
+<apple-header-{{ ai_gen_id }} class="ai-apple-header-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-apple-header__container-{{ ai_gen_id }}">
+    <div class="ai-apple-header__logo-{{ ai_gen_id }}">
+      <a href="{{ block.settings.logo_link }}" class="ai-apple-header__logo-link-{{ ai_gen_id }}">
+        {% if block.settings.logo_image %}
+          <img
+            src="{{ block.settings.logo_image | image_url: width: 400 }}"
+            alt="{{ shop.name }}"
+            class="ai-apple-header__logo-image-{{ ai_gen_id }}"
+            width="200"
+            height="{{ block.settings.logo_height }}"
+            loading="eager"
+          >
+        {% else %}
+          <span class="ai-apple-header__logo-text-{{ ai_gen_id }}">{{ block.settings.logo_text }}</span>
+        {% endif %}
+      </a>
+    </div>
+
+    <div class="ai-apple-header__search-{{ ai_gen_id }}">
+      <form action="/search" method="get" class="ai-apple-header__search-form-{{ ai_gen_id }}" role="search">
+        <span class="ai-apple-header__search-icon-{{ ai_gen_id }}">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </span>
+        <input
+          type="search"
+          name="q"
+          class="ai-apple-header__search-input-{{ ai_gen_id }}"
+          placeholder="{{ block.settings.search_placeholder }}"
+          aria-label="Search"
+        >
+      </form>
+    </div>
+
+    <div class="ai-apple-header__actions-{{ ai_gen_id }}">
+      <a href="/account" class="ai-apple-header__action-{{ ai_gen_id }}" aria-label="Account">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </a>
+
+      <a href="{{ block.settings.wishlist_link }}" class="ai-apple-header__action-{{ ai_gen_id }}" aria-label="Wishlist">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+      </a>
+
+      <a href="/cart" class="ai-apple-header__action-{{ ai_gen_id }} ai-apple-header__action-{{ ai_gen_id }}--cart" aria-label="Cart">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        {% if cart.item_count > 0 %}
+          <span class="ai-apple-header__cart-badge-{{ ai_gen_id }}">{{ cart.item_count }}</span>
+        {% endif %}
+      </a>
+    </div>
+  </div>
+</apple-header-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class AppleHeader{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.setupScrollEffect();
+      }
+
+      setupScrollEffect() {
+        let lastScroll = 0;
+        const header = this;
+
+        window.addEventListener('scroll', () => {
+          const currentScroll = window.pageYOffset;
+
+          if (currentScroll > lastScroll && currentScroll > 100) {
+            header.style.transform = 'translateY(-100%)';
+          } else {
+            header.style.transform = 'translateY(0)';
+          }
+
+          lastScroll = currentScroll;
+        });
+      }
+    }
+
+    customElements.define('apple-header-{{ ai_gen_id }}', AppleHeader{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Apple-style header",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum width",
+      "min": 1000,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "default": 1400
+    },
+    {
+      "type": "range",
+      "id": "vertical_padding",
+      "label": "Vertical padding",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "horizontal_padding",
+      "label": "Horizontal padding",
+      "min": 16,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Header style"
+    },
+    {
+      "type": "color",
+      "id": "header_bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "blur_amount",
+      "label": "Blur amount",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "Logo height",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo text",
+      "default": "Store"
+    },
+    {
+      "type": "range",
+      "id": "logo_text_size",
+      "label": "Logo text size",
+      "min": 16,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "logo_text_color",
+      "label": "Logo text color",
+      "default": "#000000"
+    },
+    {
+      "type": "url",
+      "id": "logo_link",
+      "label": "Logo link"
+    },
+    {
+      "type": "header",
+      "content": "Search bar"
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Placeholder text",
+      "default": "Search"
+    },
+    {
+      "type": "range",
+      "id": "search_max_width",
+      "label": "Maximum width",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "unit": "px",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "search_padding",
+      "label": "Padding",
+      "min": 8,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "search_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "search_font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "search_bg_color",
+      "label": "Background color",
+      "default": "#f5f5f7"
+    },
+    {
+      "type": "color",
+      "id": "search_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "search_placeholder_color",
+      "label": "Placeholder color",
+      "default": "#86868b"
+    },
+    {
+      "type": "color",
+      "id": "search_border_color",
+      "label": "Border color",
+      "default": "#d2d2d7"
+    },
+    {
+      "type": "color",
+      "id": "search_icon_color",
+      "label": "Icon color",
+      "default": "#86868b"
+    },
+    {
+      "type": "color",
+      "id": "search_focus_border_color",
+      "label": "Focus border color",
+      "default": "#0071e3"
+    },
+    {
+      "type": "range",
+      "id": "search_focus_glow",
+      "label": "Focus glow size",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_search_focus_scale",
+      "label": "Enable focus scale effect",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Action icons"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "icon_spacing",
+      "label": "Icon spacing",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#1d1d1f"
+    },
+    {
+      "type": "range",
+      "id": "cart_hover_rotate",
+      "label": "Cart hover rotation",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "deg",
+      "default": 8
+    },
+    {
+      "type": "url",
+      "id": "wishlist_link",
+      "label": "Wishlist link"
+    },
+    {
+      "type": "header",
+      "content": "Cart badge"
+    },
+    {
+      "type": "range",
+      "id": "badge_size",
+      "label": "Badge size",
+      "min": 16,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "badge_font_size",
+      "label": "Font size",
+      "min": 9,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Background color",
+      "default": "#0071e3"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Apple-style header"
+    }
+  ]
+}
 {% endschema %}
