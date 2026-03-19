@@ -85,6 +85,7 @@
     },
     "hero": {
       "type": "hero",
+      "disabled": true,
       "settings": {}
     },
     "categories": {
